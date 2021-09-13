@@ -6,14 +6,32 @@
 using namespace std;
 
 class Historial{
-    int  dia;
-    long hora;
-    string mes, ipAddress, error;
+    public:
+        int  dia;
+        long hora;
+        string mes, ipAddress, error;
 };
 
-Historial Historial(string mes, int dia, long hora, string ipAddress, string error){
+long getTime(string hora){
+    tm t{};
+    istringstream ss(hora);
 
-return ;
+    ss >> get_time(&t,"%H:%M:%S");
+    if (ss.fail()){
+        throw runtime_error{"Error al conseguir la hora"};
+    }
+    time_t time_stamp = mktime(&t);
+    return time_stamp;
+}
+
+Historial Builder(string mes, int dia, long hora, string ipAddress, string error){
+    Historial Historial;
+    Historial.mes = mes;
+    Historial.dia = dia;
+    Historial.hora = hora;
+    Historial.ipAddress = ipAddress;
+    Historial.error = error;
+return Historial;
 }
 
 vector<Historial> separador(ifstream &bitacora){
@@ -34,10 +52,10 @@ vector<Historial> separador(ifstream &bitacora){
         }
         string mes = vectorTemporal.at(0);
         int dia = stoi(vectorTemporal.at(1));
-        long hora = stol(vectorTemporal.at(2));
+        long hora = getTime(vectorTemporal.at(2));
         string ipAddress = vectorTemporal.at(3);
         string error = vectorTemporal.at(4);
-        Historial(mes, dia, hora, ipAddress, error);
+        Builder(mes, dia, hora, ipAddress, error);
     }
 };
 
