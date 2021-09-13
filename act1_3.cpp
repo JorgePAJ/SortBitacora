@@ -8,8 +8,8 @@ using namespace std;
 class Historial{
     public:
         int  dia;
-        long hora;
-        string mes, ipAddress, error;
+        long unix;
+        string mes, hora, ipAddress, error;
 };
 
 long getTime(string hora){
@@ -24,10 +24,11 @@ long getTime(string hora){
     return time_stamp;
 }
 
-Historial Builder(string mes, int dia, long hora, string ipAddress, string error){
+Historial Builder(string mes, int dia, string hora, long unix, string ipAddress, string error){
     Historial Historial;
     Historial.mes = mes;
     Historial.dia = dia;
+    Historial.unix = unix;
     Historial.hora = hora;
     Historial.ipAddress = ipAddress;
     Historial.error = error;
@@ -38,6 +39,7 @@ vector<Historial> separador(ifstream &bitacora){
     string str;
     string strTemp;
     vector<string> vectorTemporal;
+    vector<Historial> arregloObjetos;
     int counter = 0;
     while(getline(bitacora, str)){
         while(counter < 4){
@@ -52,11 +54,13 @@ vector<Historial> separador(ifstream &bitacora){
         }
         string mes = vectorTemporal.at(0);
         int dia = stoi(vectorTemporal.at(1));
-        long hora = getTime(vectorTemporal.at(2));
+        string hora = vectorTemporal.at(2);
+        long unix = getTime(hora);
         string ipAddress = vectorTemporal.at(3);
         string error = vectorTemporal.at(4);
-        Builder(mes, dia, hora, ipAddress, error);
+        arregloObjetos.push_back(Builder(mes, dia, hora, unix, ipAddress, error));
     }
+    return arregloObjetos;
 };
 
 int main(){
@@ -69,6 +73,6 @@ int main(){
         exit(1);
     }
 
-    separador(bitacora);
+    vector<Historial> arregloBitacora = separador(bitacora);
     return 0;
 }
