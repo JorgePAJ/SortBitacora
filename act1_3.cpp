@@ -13,36 +13,36 @@ class Historial{
 };
 
 long getDia(string diaUnix){
-    tm t{};
+    tm t;{};
     istringstream ss(diaUnix);
 
     ss >> get_time(&t,"%d");
     if (ss.fail()){
-        throw runtime_error{"Error al conseguir el dia"};
+        throw runtime_error("Error al conseguir el dia");
     }
     time_t time_stamp = mktime(&t);
     return time_stamp;
 }
 
 long getMes(string mes){
-    tm t{};
+    tm t;{};
     istringstream ss(mes);
 
     ss >> get_time(&t,"%m");
     if (ss.fail()){
-        throw runtime_error{"Error al conseguir el mes"};
+        throw runtime_error("Error al conseguir el mes");
     }
     time_t time_stamp = mktime(&t);
     return time_stamp;
 }
 
 long getTime(string hora){
-    tm t{};
+    tm t;{};
     istringstream ss(hora);
 
     ss >> get_time(&t,"%H:%M:%S");
     if (ss.fail()){
-        throw runtime_error{"Error al conseguir la hora"};
+        throw runtime_error("Error al conseguir la hora");
     }
     time_t time_stamp = mktime(&t);
     return time_stamp;
