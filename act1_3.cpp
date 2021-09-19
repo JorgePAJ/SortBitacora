@@ -3,44 +3,20 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 using namespace std;
 
 class Historial{
     public:
-        int  dia;
-        long horaUnix, mesUnix, diaUnix;
-        string mes, hora, ipAddress, error;
+        long unix;
+        string mes, hora, ipAddress, error, dia;
 };
-
-long getDia(string diaUnix){
-    tm t;{};
-    istringstream ss(diaUnix);
-
-    ss >> get_time(&t,"%d");
-    if (ss.fail()){
-        throw runtime_error("Error al conseguir el dia");
-    }
-    time_t time_stamp = mktime(&t);
-    return time_stamp;
-}
-
-long getMes(string mes){
-    tm t;{};
-    istringstream ss(mes);
-
-    ss >> get_time(&t,"%m");
-    if (ss.fail()){
-        throw runtime_error("Error al conseguir el mes");
-    }
-    time_t time_stamp = mktime(&t);
-    return time_stamp;
-}
 
 long getTime(string hora){
     tm t;{};
     istringstream ss(hora);
 
-    ss >> get_time(&t,"%H:%M:%S");
+    ss >> get_time(&t,"%b%d%H:%M:%S");
     if (ss.fail()){
         throw runtime_error("Error al conseguir la hora");
     }
@@ -78,49 +54,99 @@ string mesToNum (string mes){
     return mesInt;
 }
 
-Historial Builder(string mes, int dia, string hora, long horaUnix,long mesUnix, long diaUnix,string ipAddress, string error){
+Historial Builder(string mes, string dia, string hora, long unix, string ipAddress, string error){
     Historial Historial;
     Historial.mes = mes;
-    Historial.dia = diaUnix;
-    Historial.horaUnix = horaUnix;
-    Historial.mesUnix = mesUnix;
-    Historial.diaUnix = diaUnix;
+    Historial.dia = dia;
+    Historial.unix = unix;
     Historial.hora = hora;
     Historial.ipAddress = ipAddress;
     Historial.error = error;
+
 return Historial;
 }
 
-vector<Historial> separador(ifstream &bitacora){
-    string str;
-    string strTemp;
-    vector<string> vectorTemporal;
-    vector<Historial> arregloObjetos;
-    int counter = 0;
-    while(getline(bitacora, str)){
-        while(counter < 4){
-            for (int i = 0; i < str.length();i++ ){
-                if(str[i] !=' '){
-                    strTemp += str[i];
-                }else{
-                    vectorTemporal.push_back(strTemp);
-                    strTemp = "";
-                }
-            }
-        }
+void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
+
+        vector<Historial> arregloObjetos;
         string mes = vectorTemporal.at(0);
-        long mesUnix = getMes(mesToNum(vectorTemporal.at(0))) ;
-        long diaUnix = getDia(mesToNum(vectorTemporal.at(1)));
-        int dia = stoi(vectorTemporal.at(1));
+        string dia = vectorTemporal.at(1);
         string hora = vectorTemporal.at(2);
-        long horaUnix = getTime(hora);
+        string timestamp = vectorTemporal.at(0) + vectorTemporal.at(1) + vectorTemporal.at(2);
+        long unix = getTime(timestamp);
         string ipAddress = vectorTemporal.at(3);
         string error = vectorTemporal.at(4);
-        cout << mes <<endl;
-        arregloObjetos.push_back(Builder(mes, dia, hora, horaUnix, mesUnix, diaUnix, ipAddress, error));
+        /*
+        cout << "Mes: " << vectorTemporal.at(0) << endl;
+        cout << "Dia: " << vectorTemporal.at(1)<<endl;
+        cout << "Hora: " << vectorTemporal.at(2)<< endl;
+        cout << "iP: " << vectorTemporal.at(3) << endl;
+        cout <<"Error: " << vectorTemporal.at(4) << endl;
+        cout << "Tiempo unix: " << getTime(timestamp) << endl;
+    */
+        valoresFin.push_back(Builder(mes, dia, hora, unix,ipAddress, error));
+
+
+}
+void separador(ifstream &bitacora){
+    string str;
+    string strTemp;
+    vector<string> vectorTemporal(5,"0");
+    vector<Historial> valoresFin;
+
+
+    int counter = 0;
+    int i = 0;
+
+    while(getline(bitacora, str)){
+      //cout <<str<< endl;
+      counter = 0;
+        while(counter < 4){
+            if(str[i] !=' '){
+                strTemp += str[i];
+            }else{
+              //cout << strTemp << endl;
+
+              switch (counter){
+                case 0:
+                vectorTemporal.at(0)=strTemp;
+                strTemp = "";
+                case 1:
+                vectorTemporal.at(1) = strTemp;
+                strTemp = "";
+                case 2:
+                vectorTemporal.at(2)=strTemp;
+                strTemp = "";
+                case 3:
+                vectorTemporal.at(3)=strTemp;
+                strTemp = "";
+              }
+                counter++;
+
+            }
+            i++;
+        }
+        if (vectorTemporal.at(1).size() == 1){
+
+          vectorTemporal.at(1) = "0" + vectorTemporal.at(1);
+
+        }
+        for (int j = i; j < str.length(); j++)
+        {
+            strTemp += str[j];
+        }
+
+
+
+        vectorTemporal.at(4) = strTemp;
+        strTemp = "";
+
+        i = 0;
+        getValues(vectorTemporal,valoresFin);
+
     }
-    return arregloObjetos;
-};
+  cout << valoresFin[1].error << endl;
+}
 
 int main(){
 
@@ -131,6 +157,6 @@ int main(){
         cout << "No se abrio el archivo correctamente" << endl;
         exit(1);
     }
-    vector<Historial> arregloBitacora = separador(bitacora);
+    separador(bitacora);
     return 0;
 }
