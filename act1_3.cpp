@@ -66,10 +66,10 @@ Historial Builder(string mes, string dia, string hora, long unix, string ipAddre
 return Historial;
 }
 int particionar(int ini, int fin,vector<Historial> &valoresFin){
-    int pivote = valoresFin[ini].unix;
+    int pivote = valoresFin.at(ini).unix;
     int i = ini + 1;
     for(int j = i;j<=fin;j++){
-        if(valoresFin[j].unix < pivote){
+        if(valoresFin.at(j).unix < pivote){
             swap(valoresFin.at(i++),valoresFin.at(j));
         }
     }
@@ -113,7 +113,7 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 void separador(ifstream &bitacora){
     string str;
     string strTemp;
-    vector<string> vectorTemporal{"0","0","0","0","0"};
+    vector<string> vectorTemporal(5,"0");
     vector<Historial> valoresFin;
 
 
@@ -121,14 +121,12 @@ void separador(ifstream &bitacora){
     int i = 0;
  
     while(getline(bitacora, str)){
-      //cout <<str<< endl;
+
       counter = 0;
         while(counter < 4){
             if(str[i] !=' '){
                 strTemp += str[i];
             }else{
-              //cout << strTemp << endl;
-              
               switch (counter){
                 case 0:
                 vectorTemporal.at(0)=strTemp;
@@ -144,7 +142,6 @@ void separador(ifstream &bitacora){
                 strTemp = "";
               }
                 counter++;
-                
             }
             i++;
         }
@@ -158,8 +155,6 @@ void separador(ifstream &bitacora){
             strTemp += str[j];
         }
 
-
-        
         vectorTemporal.at(4) = strTemp;
         strTemp = "";
      
@@ -167,10 +162,11 @@ void separador(ifstream &bitacora){
         getValues(vectorTemporal,valoresFin);
         
     }
-  cout << valoresFin[1].error << endl;
+    
+  cout << valoresFin.at(1).error << endl;
   Quicksort(valoresFin);
   for(int i = 0; i < 5;i++){
-        cout << valoresFin[i].unix << endl;
+        cout << valoresFin.at(i).unix << endl;
   }
 }
 
