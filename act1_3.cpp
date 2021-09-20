@@ -62,10 +62,31 @@ Historial Builder(string mes, string dia, string hora, long unix, string ipAddre
     Historial.hora = hora;
     Historial.ipAddress = ipAddress;
     Historial.error = error;
-
+    
 return Historial;
 }
+int particionar(int ini, int fin,vector<Historial> &valoresFin){
+    int pivote = valoresFin[ini].unix;
+    int i = ini + 1;
+    for(int j = i;j<=fin;j++){
+        if(valoresFin[j].unix < pivote){
+            swap(valoresFin.at(i++),valoresFin.at(j));
+        }
+    }
+    swap(valoresFin.at(ini),valoresFin.at(i-1));
+    return i-1;
+}
+void quicksort(int ini,int fin,vector<Historial> &valoresFin){
+    if(ini<fin){
+        int pospiv = particionar(ini,fin,valoresFin);
+        quicksort(ini,pospiv-1,valoresFin);
+        quicksort(pospiv+1,fin,valoresFin);
+    }
+}
 
+void Quicksort(vector<Historial> &valoresFin){
+    quicksort(0,valoresFin.size()-1,valoresFin);
+}
 void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
         vector<Historial> arregloObjetos;
@@ -82,22 +103,23 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
         cout << "Hora: " << vectorTemporal.at(2)<< endl;
         cout << "iP: " << vectorTemporal.at(3) << endl;
         cout <<"Error: " << vectorTemporal.at(4) << endl;
-        cout << "Tiempo unix: " << getTime(timestamp) << endl;
+        cout << "Tiempo unix: " << getTime(timestamp) << endl; 
     */
         valoresFin.push_back(Builder(mes, dia, hora, unix,ipAddress, error));
-
+        
 
 }
+
 void separador(ifstream &bitacora){
     string str;
     string strTemp;
-    vector<string> vectorTemporal(5,"0");
+    vector<string> vectorTemporal{"0","0","0","0","0"};
     vector<Historial> valoresFin;
 
 
     int counter = 0;
     int i = 0;
-
+ 
     while(getline(bitacora, str)){
       //cout <<str<< endl;
       counter = 0;
@@ -106,7 +128,7 @@ void separador(ifstream &bitacora){
                 strTemp += str[i];
             }else{
               //cout << strTemp << endl;
-
+              
               switch (counter){
                 case 0:
                 vectorTemporal.at(0)=strTemp;
@@ -122,14 +144,14 @@ void separador(ifstream &bitacora){
                 strTemp = "";
               }
                 counter++;
-
+                
             }
             i++;
         }
         if (vectorTemporal.at(1).size() == 1){
-
+          
           vectorTemporal.at(1) = "0" + vectorTemporal.at(1);
-
+          
         }
         for (int j = i; j < str.length(); j++)
         {
@@ -137,16 +159,21 @@ void separador(ifstream &bitacora){
         }
 
 
-
+        
         vectorTemporal.at(4) = strTemp;
         strTemp = "";
-
+     
         i = 0;
         getValues(vectorTemporal,valoresFin);
-
+        
     }
   cout << valoresFin[1].error << endl;
+  Quicksort(valoresFin);
+  for(int i = 0; i < 5;i++){
+        cout << valoresFin[i].unix << endl;
+  }
 }
+
 
 int main(){
 
