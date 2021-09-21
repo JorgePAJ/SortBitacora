@@ -78,7 +78,7 @@ void quicksort(vector<Historial> &valoresFin,int ini,int fin){
 }
 
 // Utilizamos el metodo quick sort para manipular los datos.
-//Complejidad O(n^2).
+//Complejidad O(n log n).
 void Quicksort(vector<Historial> &valoresFin){ 
     quicksort(valoresFin,0,valoresFin.size()-1);
 }
