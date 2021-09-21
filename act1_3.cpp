@@ -65,6 +65,7 @@ Historial Builder(string mes, string dia, string hora, long unix, string ipAddre
     
 return Historial;
 }
+
 int particionar(int ini, int fin,vector<Historial> &valoresFin){
     int pivote = valoresFin.at(ini).unix;
     int i = ini + 1;
@@ -76,6 +77,7 @@ int particionar(int ini, int fin,vector<Historial> &valoresFin){
     swap(valoresFin.at(ini),valoresFin.at(i-1));
     return i-1;
 }
+
 void quicksort(int ini,int fin,vector<Historial> &valoresFin){
     if(ini<fin){
         int pospiv = particionar(ini,fin,valoresFin);
@@ -87,6 +89,7 @@ void quicksort(int ini,int fin,vector<Historial> &valoresFin){
 void Quicksort(vector<Historial> &valoresFin){
     quicksort(0,valoresFin.size()-1,valoresFin);
 }
+
 void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
         vector<Historial> arregloObjetos;
@@ -162,11 +165,11 @@ void separador(ifstream &bitacora){
         getValues(vectorTemporal,valoresFin);
         
     }
-    
+
   cout << valoresFin.at(1).error << endl;
   Quicksort(valoresFin);
   for(int i = 0; i < 5;i++){
-        cout << valoresFin.at(i).unix << endl;
+        cout<< " "<< i << " " << valoresFin.at(i).unix <<endl;
   }
 }
 
