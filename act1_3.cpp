@@ -166,9 +166,9 @@ void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofs
 int main(){
     ofstream resultados("Resultados.txt"); // Se crea el archivo de texto de salida
     ifstream bitacora; // Se crea la variable del archivo de texto de entrada
-    string junto,ultijunto,dia,mes,tiempo; // Se crean las variables necesarias para definir la busqueda
+    string junto,ultiJunto,dia,mes,tiempo; // Se crean las variables necesarias para definir la busqueda
     vector<Historial> arreglo; // Se crea la variable donde esta el vector final
-    int primaunix, ultimaunix;// Valor unix del primer y segundo delimitante
+    int primaUnix, ultimaUnix;// Valor unix del primer y segundo delimitante
     bitacora.open("bitacora.txt"); // Cargamos el archivo que se encuentra en el mismo directorio.
 
     if(!bitacora) { // Sirve para decirnos cuando no se carga el archivo txt
@@ -190,7 +190,7 @@ int main(){
     cin >> tiempo;
 
     junto = mes + dia + tiempo+"2020";
-    primaunix = getTime(junto); // Se consigue el valor de unix timestamp
+    primaUnix = getTime(junto); // Se consigue el valor de unix timestamp
    
     cout << "Ingresa el dia (dd) de busqueda final: " << endl;
     cin >> dia;
@@ -199,10 +199,10 @@ int main(){
     cout << "Ingresa el tiempo (HH:MM:SS) de busqueda final: " << endl;
     cin >> tiempo;
 
-    ultijunto = mes + dia + tiempo+"2020";
-    ultimaunix = getTime(ultijunto);// Se consigue el valor de unix timestamp
+    ultiJunto = mes + dia + tiempo+"2020";
+    ultimaUnix = getTime(ultiJunto);// Se consigue el valor de unix timestamp
 
-    escribirTxt(arreglo,primaunix,ultimaunix,resultados); // Llama la funcion para escribir el archivo final
+    escribirTxt(arreglo,primaUnix,ultimaUnix,resultados); // Llama la funcion para escribir el archivo final
     resultados.close(); // Termina con el archivo
     return 0;
 }
