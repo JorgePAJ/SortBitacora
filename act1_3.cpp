@@ -19,10 +19,6 @@ void cambiarTxt(vector<Historial> &valoresFin, ofstream &resultados, int i){
 long getTime(string hora){
     tm t;{};
     istringstream ss(hora);
-<<<<<<< Updated upstream
-    //cout << hora << endl;
-=======
->>>>>>> Stashed changes
     ss >> get_time(&t,"%b%d%H:%M:%S%Y");
     if (ss.fail()){
         throw runtime_error("Error al conseguir la hora");
@@ -88,21 +84,10 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
         vector<Historial> arregloObjetos;
         string mes = vectorTemporal.at(0);
-        
         string dia = vectorTemporal.at(1);
-       
         string hora = vectorTemporal.at(2);
-        
         string timestamp = mes + dia + hora + "2020";
-<<<<<<< Updated upstream
-        //cout <<"mes: " <<mes << endl;
-        //cout <<"dia: "<< dia << endl;
-        //cout <<"Hora: "<< hora << endl;
-        cout <<"timestamp" <<timestamp << endl;
-=======
->>>>>>> Stashed changes
         long unix = getTime(timestamp);
-        cout <<"unix: " << unix << endl;
         string ipAddress = vectorTemporal.at(3);
         string error = vectorTemporal.at(4);
         valoresFin.push_back(Builder(mes, dia, hora, unix,ipAddress, error));
@@ -205,17 +190,13 @@ int main(){
     cin >> tiempo;
 
     ultijunto = mes + dia + tiempo+"2020";
-<<<<<<< Updated upstream
-   //cout<< junto <<endl;
+
     ultimaunix = getTime(ultijunto);
-    //i = busqSecuencial(arreglo,)
+
     index2 = busqSecuencial(arreglo,ultimaunix);
-    //cout<<primaunix<<endl;
-    //cout<<ultimaunix<<endl;
     for(int i = index;index <= index2;i++){
         cout<< "" <<endl;
     }
-=======
     ultimaunix = getTime(ultijunto);
 
     index2 = busqSecuencial(arreglo,ultimaunix);
@@ -224,6 +205,5 @@ int main(){
         cambiarTxt(arreglo, resultados,i);
     }
     resultados.close();
->>>>>>> Stashed changes
     return 0;
 }
