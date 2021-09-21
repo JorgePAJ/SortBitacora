@@ -17,24 +17,24 @@ clase "Historial", los cuales son ordenados por fecha y mostrados en un archivo 
 #include <iomanip>
 using namespace std;
 
-class Historial{
+class Historial{ // Definimos la clase Historial con los atributos del archivo de texto
     public:
-        long unix;
-        string mes, hora, ipAddress, error, dia;
+        long unix; // la unix timestamp es el valor que usaremos para las comparaciones.
+        string mes, hora, ipAddress, error, dia; //Estos valores solo sirven para ser impresos y definir la unix timestamp
 };
 
-long getTime(string hora){
+long getTime(string hora){ //Esta funcion transforma un string a la hora en unix timestamp
     tm t;{};
     istringstream ss(hora);
-    ss >> get_time(&t,"%b%d%H:%M:%S%Y");
+    ss >> get_time(&t,"%b%d%H:%M:%S%Y"); // Se define el formato que leera la funcion.
     if (ss.fail()){
-        throw runtime_error("Error al conseguir la hora");
+        throw runtime_error("Error al conseguir la hora"); //En caso error lanzar msj.
     }
     time_t time_stamp = mktime(&t);
     return time_stamp;
 }
 
-Historial Builder(string mes, string dia, string hora, long unix, string ipAddress, string error){
+Historial Builder(string mes, string dia, string hora, long unix, string ipAddress, string error){ // Constructor de la clase
     Historial Historial;
     Historial.mes = mes;
     Historial.dia = dia;
@@ -43,18 +43,8 @@ Historial Builder(string mes, string dia, string hora, long unix, string ipAddre
     Historial.ipAddress = ipAddress;
     Historial.error = error;
     
-return Historial;
+return Historial; // Regresamos el nuevo objeto
 }
-
-int busqSecuencial(vector<Historial> &valoresFinal, long unix){
-    for(int i=0; i < valoresFinal.size() ;i++){
-        if(valoresFinal.at(i).unix == unix){
-            return i;
-        }
-    }
-    return -1;
-}
-
 
 void swap(vector<Historial> &valoresFin, int i,int  j){
     Historial aux;
@@ -82,12 +72,12 @@ void quicksort(vector<Historial> &valoresFin,int ini,int fin){
     }
 }
 
-void Quicksort(vector<Historial> &valoresFin){
+void Quicksort(vector<Historial> &valoresFin){ // Utilizamos el metodo quick sort para manipular los datos.
     quicksort(valoresFin,0,valoresFin.size()-1);
 }
 
 
-void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
+void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){ // Esta funcion arma el vector por acomodar.
 
         vector<Historial> arregloObjetos;
         string mes = vectorTemporal.at(0);
@@ -102,33 +92,33 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
 }
 
-vector<Historial> separador(ifstream &bitacora){
-    string str;
-    string strTemp;
-    vector<string> vectorTemporal(5,"0");
-    vector<Historial> valoresFin;
+vector<Historial> separador(ifstream &bitacora){ // Esta funcion separa y divide el archivo de texto en un formato trabajable.
+    string str; // Variable donde se guardara cada linea del archivo
+    string strTemp; // Variable que va re armando las palabras para ser guardadas.
+    vector<string> vectorTemporal(5,"0");// Vector donde se guardara la informacion para la creacion de objetos.
+    vector<Historial> valoresFin; // Vector donde se guardaran al fin los elementos del archivo de txt en objetos.
 
 
     int counter = 0;
     int i = 0;
  
-    while(getline(bitacora, str)){
+    while(getline(bitacora, str)){ // Getline lo utilizamos para leer las lineas del archivo original.
       counter = 0;
         while(counter < 4){
             if(str[i] !=' '){
                 strTemp += str[i];
-            }else{
-              switch (counter){
-                case 0:
+            }else{ 
+              switch (counter){ // En caso de encontrar un espacio, el switch lo acomodara en su posicion correspondiente.
+                case 0: // Caso 0: Mes
                 vectorTemporal.at(0)=strTemp;
                 strTemp = "";
-                case 1:
+                case 1:// Caso 1: Dia
                 vectorTemporal.at(1) = strTemp;
                 strTemp = "";
-                case 2:
+                case 2:// Caso 2: Hora
                 vectorTemporal.at(2)=strTemp;
                 strTemp = "";
-                case 3:
+                case 3:// Caso 3: Ip
                 vectorTemporal.at(3)=strTemp;
                 strTemp = "";
               }
@@ -137,14 +127,14 @@ vector<Historial> separador(ifstream &bitacora){
             }
             i++;
         }
-        if (vectorTemporal.at(1).size() == 1){
+        if (vectorTemporal.at(1).size() == 1){ // La funcion get_time necesita tener el dia con dos valores, si es uno, agregar 0 al inicio
           
           vectorTemporal.at(1) = "0" + vectorTemporal.at(1);
           
         }
         for (int j = i; j < str.length(); j++)
         {
-            strTemp += str[j];
+            strTemp += str[j]; // Se vuelve a armar el string del error.
         }
 
 
@@ -157,26 +147,25 @@ vector<Historial> separador(ifstream &bitacora){
         
     }
 
-  Quicksort(valoresFin);
+  Quicksort(valoresFin); // Se ordena el vector valoresFin base a su valor de unix timestamp
   return valoresFin;
 }
 
 
-void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){
+void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){ // Esta funcion escribe el archivo de texto final
     for (int i =0;i < arreglo.size(); i++){
         if(arreglo.at(i).unix >= primerUnix && arreglo.at(i).unix <= ultimoUnix){
-            resultados << arreglo.at(i).mes << " " << arreglo.at(i).dia << " " << arreglo.at(i).hora << " " << arreglo.at(i).ipAddress << " " << arreglo.at(i).error << endl;
+            resultados << arreglo.at(i).mes << " " << arreglo.at(i).dia << " " << arreglo.at(i).hora << " " << arreglo.at(i).ipAddress << " " << arreglo.at(i).error << endl; // Aqui escribe sobre el archivo
         }
     }
 }
 
 int main(){
-    ofstream resultados("Resultados.txt");
-    ifstream bitacora;
-    string junto,ultijunto,dia,mes,tiempo;
-    vector<Historial> arreglo;
-    int primaunix, ultimaunix;
-    int index,index2;
+    ofstream resultados("Resultados.txt"); // Se crea el archivo de texto de salida
+    ifstream bitacora; // Se crea la variable del archivo de texto de entrada
+    string junto,ultijunto,dia,mes,tiempo; // Se crean las variables necesarias para definir la busqueda
+    vector<Historial> arreglo; // Se crea la variable donde esta el vector final
+    int primaunix, ultimaunix;// Valor unix del primer y segundo delimitante
     bitacora.open("bitacora.txt"); // Cargamos el archivo que se encuentra en el mismo directorio.
 
     if(!bitacora) { // Sirve para decirnos cuando no se carga el archivo txt
@@ -185,7 +174,7 @@ int main(){
     }
     arreglo = separador(bitacora);
 
-    cout << "Ingresa el dia (dd) de busqueda inicial: " << endl;
+    cout << "Ingresa el dia (01,10,31...) de busqueda inicial: " << endl;
     cin >> dia;
     cout << "Ingresa el mes (Aug,Sep,Oct...) de busqueda inicial: " << endl;
     cin >> mes;
@@ -193,7 +182,7 @@ int main(){
     cin >> tiempo;
 
     junto = mes + dia + tiempo+"2020";
-    primaunix = getTime(junto);
+    primaunix = getTime(junto); // Se consigue el valor de unix timestamp
    
     cout << "Ingresa el dia (dd) de busqueda final: " << endl;
     cin >> dia;
@@ -203,13 +192,9 @@ int main(){
     cin >> tiempo;
 
     ultijunto = mes + dia + tiempo+"2020";
+    ultimaunix = getTime(ultijunto);// Se consigue el valor de unix timestamp
 
-    ultimaunix = getTime(ultijunto);
-
-    ultimaunix = getTime(ultijunto);
-
-
-    escribirTxt(arreglo,primaunix,ultimaunix,resultados);
-    resultados.close();
+    escribirTxt(arreglo,primaunix,ultimaunix,resultados); // Llama la funcion para escribir el archivo final
+    resultados.close(); // Termina con el archivo
     return 0;
 }
