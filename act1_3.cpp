@@ -6,7 +6,7 @@ Emmanuel Humberto Solórzano Cabrera - A01640284
 
 Descripción:
 Programa que recibe un archivo de texto con diversas líneas de datos compuestos por mes, día, hora, ip y un error. Dichos datos son separados y acomodados dentro de un vector de
-clase "Historial", los cuales son ordenados por fecha y mostrados en un archivo de texto delimitado por el usuario.
+clase "Historial", los cuales son ordenados por fecha de mas reciente a mas antiguo y mostrados en un archivo de texto delimitado por el usuario.
 */
 
 #include <vector>
@@ -60,7 +60,7 @@ long particionar(vector<Historial> &valoresFin,int ini, int fin){
     long pivote = valoresFin.at(ini).unix;
     long i = ini + 1;
     for(long j = i;j<=fin;j++){
-        if(valoresFin.at(j).unix < pivote){
+        if(valoresFin.at(j).unix > pivote){ // el > es inverso, el cual nos dara los resultados de manera descendente.
             swap(valoresFin,i++,j);
         }
     }
