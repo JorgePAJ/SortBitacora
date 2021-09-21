@@ -12,10 +12,17 @@ class Historial{
         string mes, hora, ipAddress, error, dia;
 };
 
+void cambiarTxt(vector<Historial> &valoresFin, ofstream &resultados, int i){
+    resultados << valoresFin.at(i).mes + " " + valoresFin.at(i).dia;
+}
+
 long getTime(string hora){
     tm t;{};
     istringstream ss(hora);
+<<<<<<< Updated upstream
     //cout << hora << endl;
+=======
+>>>>>>> Stashed changes
     ss >> get_time(&t,"%b%d%H:%M:%S%Y");
     if (ss.fail()){
         throw runtime_error("Error al conseguir la hora");
@@ -87,22 +94,17 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
         string hora = vectorTemporal.at(2);
         
         string timestamp = mes + dia + hora + "2020";
+<<<<<<< Updated upstream
         //cout <<"mes: " <<mes << endl;
         //cout <<"dia: "<< dia << endl;
         //cout <<"Hora: "<< hora << endl;
         cout <<"timestamp" <<timestamp << endl;
+=======
+>>>>>>> Stashed changes
         long unix = getTime(timestamp);
         cout <<"unix: " << unix << endl;
         string ipAddress = vectorTemporal.at(3);
         string error = vectorTemporal.at(4);
-        /*
-        cout << "Mes: " << vectorTemporal.at(0) << endl;
-        cout << "Dia: " << vectorTemporal.at(1)<<endl;
-        cout << "Hora: " << vectorTemporal.at(2)<< endl;
-        cout << "iP: " << vectorTemporal.at(3) << endl;
-        cout <<"Error: " << vectorTemporal.at(4) << endl;
-        cout << "Tiempo unix: " << getTime(timestamp) << endl; 
-    */
         valoresFin.push_back(Builder(mes, dia, hora, unix,ipAddress, error));
         
 
@@ -119,14 +121,11 @@ vector<Historial> separador(ifstream &bitacora){
     int i = 0;
  
     while(getline(bitacora, str)){
-      //cout <<str<< endl;
       counter = 0;
         while(counter < 4){
             if(str[i] !=' '){
                 strTemp += str[i];
             }else{
-              //cout << strTemp << endl;
-              
               switch (counter){
                 case 0:
                 vectorTemporal.at(0)=strTemp;
@@ -165,7 +164,7 @@ vector<Historial> separador(ifstream &bitacora){
         getValues(vectorTemporal,valoresFin);
         
     }
-  cout << valoresFin[1].error << endl;
+
   Quicksort(valoresFin);
   return valoresFin;
 }
@@ -173,7 +172,7 @@ vector<Historial> separador(ifstream &bitacora){
 
 
 int main(){
-
+    ofstream resultados("Resultados.txt");
     ifstream bitacora;
     string junto,ultijunto,dia,mes,tiempo;
     vector<Historial> arreglo;
@@ -206,6 +205,7 @@ int main(){
     cin >> tiempo;
 
     ultijunto = mes + dia + tiempo+"2020";
+<<<<<<< Updated upstream
    //cout<< junto <<endl;
     ultimaunix = getTime(ultijunto);
     //i = busqSecuencial(arreglo,)
@@ -215,5 +215,15 @@ int main(){
     for(int i = index;index <= index2;i++){
         cout<< "" <<endl;
     }
+=======
+    ultimaunix = getTime(ultijunto);
+
+    index2 = busqSecuencial(arreglo,ultimaunix);
+
+    for(int i = index; i <= index2; i++){
+        cambiarTxt(arreglo, resultados,i);
+    }
+    resultados.close();
+>>>>>>> Stashed changes
     return 0;
 }
