@@ -179,6 +179,11 @@ int main(){
 
     cout << "Ingresa el dia (01,10,31...) de busqueda inicial: " << endl;
     cin >> dia;
+    if (dia.size() == 1){ // La funcion get_time necesita tener el dia con dos valores, si es uno, agregar 0 al inicio
+          
+        dia = "0" + dia;
+          
+    }
     cout << "Ingresa el mes (Aug,Sep,Oct...) de busqueda inicial: " << endl;
     cin >> mes;
     cout << "Ingresa el tiempo (HH:MM:SS) de busqueda inicial: " << endl;
