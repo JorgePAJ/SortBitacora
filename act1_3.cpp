@@ -15,7 +15,7 @@ class Historial{
 long getTime(string hora){
     tm t;{};
     istringstream ss(hora);
-
+    //cout << hora << endl;
     ss >> get_time(&t,"%b%d%H:%M:%S");
     if (ss.fail()){
         throw runtime_error("Error al conseguir la hora");
@@ -65,6 +65,16 @@ Historial Builder(string mes, string dia, string hora, long unix, string ipAddre
     
 return Historial;
 }
+
+int busqSecuencial(vector<int> &valoresFinal, long unix){
+    for(int i=0; i < valoresFinal.size() ;i++){
+        if(valoresFinal.at(i) == unix){
+            return i;
+        }
+    }
+    return -1;
+}
+
 
 void swap(vector<Historial> &valoresFin, int i,int  j){
     Historial aux;
@@ -134,7 +144,7 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
 }
 
-void separador(ifstream &bitacora){
+vector<Historial> separador(ifstream &bitacora){
     string str;
     string strTemp;
     vector<string> vectorTemporal(5,"0");
@@ -196,6 +206,7 @@ void separador(ifstream &bitacora){
   for(int i = 0; i < 5;i++){
         cout << valoresFin[i].unix << endl;
   }
+  return valoresFin;
 }
 
 
@@ -203,12 +214,31 @@ void separador(ifstream &bitacora){
 int main(){
 
     ifstream bitacora;
+    string junto,dia,mes,tiempo;
+    vector<Historial> arreglo;
+    int primaunix;
     bitacora.open("bitacora.txt"); // Cargamos el archivo que se encuentra en el mismo directorio.
 
     if(!bitacora) { // Sirve para decirnos cuando no se carga el archivo txt
         cout << "No se abrio el archivo correctamente" << endl;
         exit(1);
     }
-    separador(bitacora);
+    /*
+    cout << "Ingresa el dia (dd) de busqueda inicial: " << endl;
+    cin >> dia;
+    cout << "Ingresa el mes (mm) de busqueda inicial: " << endl;
+    cin >> mes;
+    cout << "Ingresa el tiempo (HH:MM:SS) de busqueda inicial: " << endl;
+    cin >> tiempo;
+    */
+   mes = "Feb";
+   dia = "15";
+   tiempo = "10:25:30";
+   junto = mes + dia + tiempo;
+   cout<<junto<<endl;
+    primaunix = getTime(junto);
+    cout<<primaunix<<endl;
+    arreglo = separador(bitacora);
+    //i = busqSecuencial(arreglo,)
     return 0;
 }
