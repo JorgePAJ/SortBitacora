@@ -56,6 +56,7 @@ void swap(vector<Historial> &valoresFin, int i,int  j){
     valoresFin.at(j) = aux;
 }
 
+
 long particionar(vector<Historial> &valoresFin,int ini, int fin){
     long pivote = valoresFin.at(ini).unix;
     long i = ini + 1;
@@ -67,6 +68,7 @@ long particionar(vector<Historial> &valoresFin,int ini, int fin){
     swap(valoresFin,ini,i-1);
     return i-1;
 }
+
 void quicksort(vector<Historial> &valoresFin,int ini,int fin){
     if(ini<fin){
         long pospiv = particionar(valoresFin,ini,fin);
@@ -74,6 +76,8 @@ void quicksort(vector<Historial> &valoresFin,int ini,int fin){
         quicksort(valoresFin,pospiv+1,fin);
     }
 }
+
+//O(n^2).
 // Utilizamos el metodo quick sort para manipular los datos.
 void Quicksort(vector<Historial> &valoresFin){ 
     quicksort(valoresFin,0,valoresFin.size()-1);
@@ -94,6 +98,7 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
         
 
 }
+
 // Esta funcion separa y divide el archivo de texto en un formato trabajable.
 vector<Historial> separador(ifstream &bitacora){ 
     string str; // Variable donde se guardara cada linea del archivo
