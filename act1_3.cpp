@@ -152,11 +152,8 @@ vector<Historial> separador(ifstream &bitacora){
 
 
 void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){
-    cout << "entra a la funcion" << endl;
     for (int i =0;i < arreglo.size(); i++){
-        cout <<"f0r" <<endl;
         if(arreglo.at(i).unix >= primerUnix && arreglo.at(i).unix <= ultimoUnix){
-            cout << "entra if" <<endl;
             resultados << arreglo.at(i).mes << " " << arreglo.at(i).dia << " " << arreglo.at(i).hora << " " << arreglo.at(i).error << endl;
         }
     }
@@ -179,15 +176,14 @@ int main(){
 
     cout << "Ingresa el dia (dd) de busqueda inicial: " << endl;
     cin >> dia;
-    cout << "Ingresa el mes (mm) de busqueda inicial: " << endl;
+    cout << "Ingresa el mes (Aug,Sep,Oct...) de busqueda inicial: " << endl;
     cin >> mes;
     cout << "Ingresa el tiempo (HH:MM:SS) de busqueda inicial: " << endl;
     cin >> tiempo;
 
     junto = mes + dia + tiempo+"2020";
     primaunix = getTime(junto);
-    //index = busqSecuencial(arreglo,primaunix);
-
+   
     cout << "Ingresa el dia (dd) de busqueda final: " << endl;
     cin >> dia;
     cout << "Ingresa el mes (mm) de busqueda final: " << endl;
