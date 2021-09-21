@@ -16,14 +16,17 @@ clase "Historial", los cuales son ordenados por fecha y mostrados en un archivo 
 #include <sstream>
 #include <iomanip>
 using namespace std;
-
-class Historial{ // Definimos la clase Historial con los atributos del archivo de texto
+// Definimos la clase Historial con los atributos del archivo de texto
+class Historial{ 
     public:
         long unix; // la unix timestamp es el valor que usaremos para las comparaciones.
         string mes, hora, ipAddress, error, dia; //Estos valores solo sirven para ser impresos y definir la unix timestamp
 };
 
-long getTime(string hora){ //Esta funcion transforma un string a la hora en unix timestamp
+//Esta funcion transforma un string a la hora en unix timestamp
+//Nos apoyamos en el comentario de Joanna para entender la libreria.
+//https://stackoverflow.com/questions/17681439/convert-string-time-to-unix-timestamp
+long getTime(string hora){ 
     tm t;{};
     istringstream ss(hora);
     ss >> get_time(&t,"%b%d%H:%M:%S%Y"); // Se define el formato que leera la funcion.
@@ -33,8 +36,8 @@ long getTime(string hora){ //Esta funcion transforma un string a la hora en unix
     time_t time_stamp = mktime(&t);
     return time_stamp;
 }
-
-Historial Builder(string mes, string dia, string hora, long unix, string ipAddress, string error){ // Constructor de la clase
+// Constructor de la clase
+Historial Builder(string mes, string dia, string hora, long unix, string ipAddress, string error){ 
     Historial Historial;
     Historial.mes = mes;
     Historial.dia = dia;
@@ -71,13 +74,13 @@ void quicksort(vector<Historial> &valoresFin,int ini,int fin){
         quicksort(valoresFin,pospiv+1,fin);
     }
 }
-
-void Quicksort(vector<Historial> &valoresFin){ // Utilizamos el metodo quick sort para manipular los datos.
+// Utilizamos el metodo quick sort para manipular los datos.
+void Quicksort(vector<Historial> &valoresFin){ 
     quicksort(valoresFin,0,valoresFin.size()-1);
 }
 
-
-void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){ // Esta funcion arma el vector por acomodar.
+// Esta funcion arma el vector por acomodar.
+void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){ 
 
         vector<Historial> arregloObjetos;
         string mes = vectorTemporal.at(0);
@@ -91,8 +94,8 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){ /
         
 
 }
-
-vector<Historial> separador(ifstream &bitacora){ // Esta funcion separa y divide el archivo de texto en un formato trabajable.
+// Esta funcion separa y divide el archivo de texto en un formato trabajable.
+vector<Historial> separador(ifstream &bitacora){ 
     string str; // Variable donde se guardara cada linea del archivo
     string strTemp; // Variable que va re armando las palabras para ser guardadas.
     vector<string> vectorTemporal(5,"0");// Vector donde se guardara la informacion para la creacion de objetos.
@@ -151,8 +154,8 @@ vector<Historial> separador(ifstream &bitacora){ // Esta funcion separa y divide
   return valoresFin;
 }
 
-
-void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){ // Esta funcion escribe el archivo de texto final
+// Esta funcion escribe el archivo de texto final
+void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){ 
     for (int i =0;i < arreglo.size(); i++){
         if(arreglo.at(i).unix >= primerUnix && arreglo.at(i).unix <= ultimoUnix){
             resultados << arreglo.at(i).mes << " " << arreglo.at(i).dia << " " << arreglo.at(i).hora << " " << arreglo.at(i).ipAddress << " " << arreglo.at(i).error << endl; // Aqui escribe sobre el archivo
