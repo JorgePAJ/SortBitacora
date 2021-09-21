@@ -36,9 +36,9 @@ Historial Builder(string mes, string dia, string hora, long unix, string ipAddre
 return Historial;
 }
 
-int busqSecuencial(vector<int> &valoresFinal, long unix){
+int busqSecuencial(vector<Historial> &valoresFinal, long unix){
     for(int i=0; i < valoresFinal.size() ;i++){
-        if(valoresFinal.at(i) == unix){
+        if(valoresFinal.at(i).unix == unix){
             return i;
         }
     }
@@ -76,20 +76,6 @@ void Quicksort(vector<Historial> &valoresFin){
     quicksort(valoresFin,0,valoresFin.size()-1);
 }
 
-void ordenaInsercion(vector<Historial> &valoresFin){//O(n^2)
-    int tam = valoresFin.size();
-    int iter = 0;
-    for(int i = 1; i < tam; i++){
-        for(int j = i-1; j >= 0 ; j--){
-            if(valoresFin.at(j+1).unix < valoresFin.at(j).unix ){
-                swap(valoresFin.at(j+1),valoresFin.at(j));
-            }else{
-                break;
-            }
-        }
-    }
-
-}
 
 void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
@@ -189,31 +175,41 @@ vector<Historial> separador(ifstream &bitacora){
 int main(){
 
     ifstream bitacora;
-    string junto,dia,mes,tiempo;
+    string junto,ultijunto,dia,mes,tiempo;
     vector<Historial> arreglo;
-    int primaunix;
+    int primaunix, ultimaunix;
+    int index,index2;
     bitacora.open("bitacora.txt"); // Cargamos el archivo que se encuentra en el mismo directorio.
 
     if(!bitacora) { // Sirve para decirnos cuando no se carga el archivo txt
         cout << "No se abrio el archivo correctamente" << endl;
         exit(1);
     }
-    /*
+    arreglo = separador(bitacora);
+
     cout << "Ingresa el dia (dd) de busqueda inicial: " << endl;
     cin >> dia;
     cout << "Ingresa el mes (mm) de busqueda inicial: " << endl;
     cin >> mes;
     cout << "Ingresa el tiempo (HH:MM:SS) de busqueda inicial: " << endl;
     cin >> tiempo;
-    */
-   mes = "Feb";
-   dia = "15";
-   tiempo = "10:25:30";
-   junto = mes + dia + tiempo+"2021";
-   cout<< junto <<endl;
+
+    junto = mes + dia + tiempo+"2020";
     primaunix = getTime(junto);
+    index = busqSecuencial(arreglo,primaunix);
+
+    cout << "Ingresa el dia (dd) de busqueda final: " << endl;
+    cin >> dia;
+    cout << "Ingresa el mes (mm) de busqueda final: " << endl;
+    cin >> mes;
+    cout << "Ingresa el tiempo (HH:MM:SS) de busqueda final: " << endl;
+    cin >> tiempo;
+
+    ultijunto = mes + dia + tiempo+"2020";
+   //cout<< junto <<endl;
+    ultimaunix = getTime(ultijunto);
     cout<<primaunix<<endl;
-    arreglo = separador(bitacora);
     //i = busqSecuencial(arreglo,)
+    index2 = busqSecuencial(arreglo,ultimaunix);
     return 0;
 }
