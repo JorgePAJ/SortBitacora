@@ -208,8 +208,12 @@ int main(){
     ultijunto = mes + dia + tiempo+"2020";
    //cout<< junto <<endl;
     ultimaunix = getTime(ultijunto);
-    cout<<primaunix<<endl;
     //i = busqSecuencial(arreglo,)
     index2 = busqSecuencial(arreglo,ultimaunix);
+    //cout<<primaunix<<endl;
+    //cout<<ultimaunix<<endl;
+    for(int i = index;index <= index2;i++){
+        cout<< "" <<endl;
+    }
     return 0;
 }
