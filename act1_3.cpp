@@ -65,28 +65,52 @@ Historial Builder(string mes, string dia, string hora, long unix, string ipAddre
     
 return Historial;
 }
-int particionar(int ini, int fin,vector<Historial> &valoresFin){
-    int pivote = valoresFin.at(ini).unix;
-    int i = ini + 1;
-    for(int j = i;j<=fin;j++){
+
+void swap(vector<Historial> &valoresFin, int i,int  j){
+    Historial aux;
+    aux = valoresFin.at(i);
+    valoresFin.at(i) = valoresFin.at(j);
+    valoresFin.at(j) = aux;
+}
+
+long particionar(vector<Historial> &valoresFin,int ini, int fin){
+    long pivote = valoresFin.at(ini).unix;
+    long i = ini + 1;
+    for(long j = i;j<=fin;j++){
         if(valoresFin.at(j).unix < pivote){
-            swap(valoresFin.at(i++),valoresFin.at(j));
+            swap(valoresFin,i++,j);
         }
     }
-    swap(valoresFin.at(ini),valoresFin.at(i-1));
+    swap(valoresFin,ini,i-1);
     return i-1;
 }
-void quicksort(int ini,int fin,vector<Historial> &valoresFin){
+void quicksort(vector<Historial> &valoresFin,int ini,int fin){
     if(ini<fin){
-        int pospiv = particionar(ini,fin,valoresFin);
-        quicksort(ini,pospiv-1,valoresFin);
-        quicksort(pospiv+1,fin,valoresFin);
+        long pospiv = particionar(valoresFin,ini,fin);
+        quicksort(valoresFin,ini,pospiv-1);
+        quicksort(valoresFin,pospiv+1,fin);
     }
 }
 
 void Quicksort(vector<Historial> &valoresFin){
-    quicksort(0,valoresFin.size()-1,valoresFin);
+    quicksort(valoresFin,0,valoresFin.size()-1);
 }
+
+void ordenaInsercion(vector<Historial> &valoresFin){//O(n^2)
+    int tam = valoresFin.size();
+    int iter = 0;
+    for(int i = 1; i < tam; i++){
+        for(int j = i-1; j >= 0 ; j--){
+            if(valoresFin.at(j+1).unix < valoresFin.at(j).unix ){
+                swap(valoresFin.at(j+1),valoresFin.at(j));
+            }else{
+                break;
+            }
+        }
+    }
+
+}
+
 void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
         vector<Historial> arregloObjetos;
@@ -113,7 +137,7 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 void separador(ifstream &bitacora){
     string str;
     string strTemp;
-    vector<string> vectorTemporal(5,"0");
+    vector<string> vectorTemporal{"0","0","0","0","0"};
     vector<Historial> valoresFin;
 
 
@@ -121,12 +145,14 @@ void separador(ifstream &bitacora){
     int i = 0;
  
     while(getline(bitacora, str)){
-
+      //cout <<str<< endl;
       counter = 0;
         while(counter < 4){
             if(str[i] !=' '){
                 strTemp += str[i];
             }else{
+              //cout << strTemp << endl;
+              
               switch (counter){
                 case 0:
                 vectorTemporal.at(0)=strTemp;
@@ -142,6 +168,7 @@ void separador(ifstream &bitacora){
                 strTemp = "";
               }
                 counter++;
+                
             }
             i++;
         }
@@ -155,6 +182,8 @@ void separador(ifstream &bitacora){
             strTemp += str[j];
         }
 
+
+        
         vectorTemporal.at(4) = strTemp;
         strTemp = "";
      
@@ -162,13 +191,13 @@ void separador(ifstream &bitacora){
         getValues(vectorTemporal,valoresFin);
         
     }
-    
-  cout << valoresFin.at(1).error << endl;
+  cout << valoresFin[1].error << endl;
   Quicksort(valoresFin);
   for(int i = 0; i < 5;i++){
-        cout << valoresFin.at(i).unix << endl;
+        cout << valoresFin[i].unix << endl;
   }
 }
+
 
 
 int main(){
