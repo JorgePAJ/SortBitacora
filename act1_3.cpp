@@ -12,46 +12,19 @@ class Historial{
         string mes, hora, ipAddress, error, dia;
 };
 
+void cambiarTxt(vector<Historial> &valoresFin, ofstream &resultados, int i){
+    resultados << valoresFin.at(i).mes + " " + valoresFin.at(i).dia;
+}
+
 long getTime(string hora){
     tm t;{};
     istringstream ss(hora);
-
-    ss >> get_time(&t,"%b%d%H:%M:%S");
+    ss >> get_time(&t,"%b%d%H:%M:%S%Y");
     if (ss.fail()){
         throw runtime_error("Error al conseguir la hora");
     }
     time_t time_stamp = mktime(&t);
     return time_stamp;
-}
-
-string mesToNum (string mes){
-    string mesInt = "";
-    if (mes == "Jan"){
-        mesInt = "1";
-    }else if(mes == "Feb"){
-        mesInt = "2";
-    }else if(mes == "Mar"){
-        mesInt = "3";
-    }else if(mes == "Apr"){
-        mesInt = "4";
-    }else if(mes == "May"){
-        mesInt = "5";
-    }else if(mes == "Jun"){
-        mesInt = "6";
-    }else if(mes == "Jul"){
-        mesInt = "7";
-    }else if(mes == "Aug"){
-        mesInt = "8";
-    }else if(mes == "Sep"){
-        mesInt = "9";
-    }else if(mes == "Oct"){
-        mesInt = "10";
-    }else if(mes == "Nov"){
-        mesInt = "11";
-    }else if(mes == "Dic"){
-        mesInt = "12";
-    }
-    return mesInt;
 }
 
 Historial Builder(string mes, string dia, string hora, long unix, string ipAddress, string error){
@@ -65,6 +38,16 @@ Historial Builder(string mes, string dia, string hora, long unix, string ipAddre
     
 return Historial;
 }
+
+int busqSecuencial(vector<Historial> &valoresFinal, long unix){
+    for(int i=0; i < valoresFinal.size() ;i++){
+        if(valoresFinal.at(i).unix == unix){
+            return i;
+        }
+    }
+    return -1;
+}
+
 
 void swap(vector<Historial> &valoresFin, int i,int  j){
     Historial aux;
@@ -96,20 +79,6 @@ void Quicksort(vector<Historial> &valoresFin){
     quicksort(valoresFin,0,valoresFin.size()-1);
 }
 
-void ordenaInsercion(vector<Historial> &valoresFin){//O(n^2)
-    int tam = valoresFin.size();
-    int iter = 0;
-    for(int i = 1; i < tam; i++){
-        for(int j = i-1; j >= 0 ; j--){
-            if(valoresFin.at(j+1).unix < valoresFin.at(j).unix ){
-                swap(valoresFin.at(j+1),valoresFin.at(j));
-            }else{
-                break;
-            }
-        }
-    }
-
-}
 
 void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
@@ -117,24 +86,16 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
         string mes = vectorTemporal.at(0);
         string dia = vectorTemporal.at(1);
         string hora = vectorTemporal.at(2);
-        string timestamp = vectorTemporal.at(0) + vectorTemporal.at(1) + vectorTemporal.at(2);
+        string timestamp = mes + dia + hora + "2020";
         long unix = getTime(timestamp);
         string ipAddress = vectorTemporal.at(3);
         string error = vectorTemporal.at(4);
-        /*
-        cout << "Mes: " << vectorTemporal.at(0) << endl;
-        cout << "Dia: " << vectorTemporal.at(1)<<endl;
-        cout << "Hora: " << vectorTemporal.at(2)<< endl;
-        cout << "iP: " << vectorTemporal.at(3) << endl;
-        cout <<"Error: " << vectorTemporal.at(4) << endl;
-        cout << "Tiempo unix: " << getTime(timestamp) << endl; 
-    */
         valoresFin.push_back(Builder(mes, dia, hora, unix,ipAddress, error));
         
 
 }
 
-void separador(ifstream &bitacora){
+vector<Historial> separador(ifstream &bitacora){
     string str;
     string strTemp;
     vector<string> vectorTemporal(5,"0");
@@ -145,14 +106,11 @@ void separador(ifstream &bitacora){
     int i = 0;
  
     while(getline(bitacora, str)){
-      //cout <<str<< endl;
       counter = 0;
         while(counter < 4){
             if(str[i] !=' '){
                 strTemp += str[i];
             }else{
-              //cout << strTemp << endl;
-              
               switch (counter){
                 case 0:
                 vectorTemporal.at(0)=strTemp;
@@ -191,24 +149,61 @@ void separador(ifstream &bitacora){
         getValues(vectorTemporal,valoresFin);
         
     }
-  cout << valoresFin[1].error << endl;
+
   Quicksort(valoresFin);
-  for(int i = 0; i < 5;i++){
-        cout << valoresFin[i].unix << endl;
-  }
+  return valoresFin;
 }
 
 
 
 int main(){
-
+    ofstream resultados("Resultados.txt");
     ifstream bitacora;
+    string junto,ultijunto,dia,mes,tiempo;
+    vector<Historial> arreglo;
+    int primaunix, ultimaunix;
+    int index,index2;
     bitacora.open("bitacora.txt"); // Cargamos el archivo que se encuentra en el mismo directorio.
 
     if(!bitacora) { // Sirve para decirnos cuando no se carga el archivo txt
         cout << "No se abrio el archivo correctamente" << endl;
         exit(1);
     }
-    separador(bitacora);
+    arreglo = separador(bitacora);
+
+    cout << "Ingresa el dia (dd) de busqueda inicial: " << endl;
+    cin >> dia;
+    cout << "Ingresa el mes (mm) de busqueda inicial: " << endl;
+    cin >> mes;
+    cout << "Ingresa el tiempo (HH:MM:SS) de busqueda inicial: " << endl;
+    cin >> tiempo;
+
+    junto = mes + dia + tiempo+"2020";
+    primaunix = getTime(junto);
+    index = busqSecuencial(arreglo,primaunix);
+
+    cout << "Ingresa el dia (dd) de busqueda final: " << endl;
+    cin >> dia;
+    cout << "Ingresa el mes (mm) de busqueda final: " << endl;
+    cin >> mes;
+    cout << "Ingresa el tiempo (HH:MM:SS) de busqueda final: " << endl;
+    cin >> tiempo;
+
+    ultijunto = mes + dia + tiempo+"2020";
+
+    ultimaunix = getTime(ultijunto);
+
+    index2 = busqSecuencial(arreglo,ultimaunix);
+    for(int i = index;index <= index2;i++){
+        cout<< "" <<endl;
+    }
+    ultimaunix = getTime(ultijunto);
+
+    index2 = busqSecuencial(arreglo,ultimaunix);
+
+    for(int i = index; i <= index2; i++){
+        cambiarTxt(arreglo, resultados,i);
+    }
+    resultados.close();
     return 0;
 }
