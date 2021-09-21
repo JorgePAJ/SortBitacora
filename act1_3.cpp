@@ -159,6 +159,7 @@ vector<Historial> separador(ifstream &bitacora){
   return valoresFin;
 }
 
+//Orden O(n).
 // Esta funcion escribe el archivo de texto final
 void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){ 
     for (int i =0;i < arreglo.size(); i++){
