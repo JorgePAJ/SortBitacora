@@ -77,8 +77,8 @@ void quicksort(vector<Historial> &valoresFin,int ini,int fin){
     }
 }
 
-//O(n^2).
 // Utilizamos el metodo quick sort para manipular los datos.
+//Complejidad O(n^2).
 void Quicksort(vector<Historial> &valoresFin){ 
     quicksort(valoresFin,0,valoresFin.size()-1);
 }
@@ -100,6 +100,7 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 }
 
 // Esta funcion separa y divide el archivo de texto en un formato trabajable.
+//Complejidad O(n)
 vector<Historial> separador(ifstream &bitacora){ 
     string str; // Variable donde se guardara cada linea del archivo
     string strTemp; // Variable que va re armando las palabras para ser guardadas.
@@ -159,8 +160,8 @@ vector<Historial> separador(ifstream &bitacora){
   return valoresFin;
 }
 
-//Orden O(n).
 // Esta funcion escribe el archivo de texto final
+//Complejidad O(n)
 void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){ 
     for (int i =0;i < arreglo.size(); i++){
         if(arreglo.at(i).unix >= primerUnix && arreglo.at(i).unix <= ultimoUnix){
