@@ -16,42 +16,12 @@ long getTime(string hora){
     tm t;{};
     istringstream ss(hora);
     //cout << hora << endl;
-    ss >> get_time(&t,"%b%d%H:%M:%S");
+    ss >> get_time(&t,"%b%d%H:%M:%S%Y");
     if (ss.fail()){
         throw runtime_error("Error al conseguir la hora");
     }
     time_t time_stamp = mktime(&t);
     return time_stamp;
-}
-
-string mesToNum (string mes){
-    string mesInt = "";
-    if (mes == "Jan"){
-        mesInt = "1";
-    }else if(mes == "Feb"){
-        mesInt = "2";
-    }else if(mes == "Mar"){
-        mesInt = "3";
-    }else if(mes == "Apr"){
-        mesInt = "4";
-    }else if(mes == "May"){
-        mesInt = "5";
-    }else if(mes == "Jun"){
-        mesInt = "6";
-    }else if(mes == "Jul"){
-        mesInt = "7";
-    }else if(mes == "Aug"){
-        mesInt = "8";
-    }else if(mes == "Sep"){
-        mesInt = "9";
-    }else if(mes == "Oct"){
-        mesInt = "10";
-    }else if(mes == "Nov"){
-        mesInt = "11";
-    }else if(mes == "Dic"){
-        mesInt = "12";
-    }
-    return mesInt;
 }
 
 Historial Builder(string mes, string dia, string hora, long unix, string ipAddress, string error){
@@ -125,10 +95,18 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 
         vector<Historial> arregloObjetos;
         string mes = vectorTemporal.at(0);
+        
         string dia = vectorTemporal.at(1);
+       
         string hora = vectorTemporal.at(2);
-        string timestamp = vectorTemporal.at(0) + vectorTemporal.at(1) + vectorTemporal.at(2);
+        
+        string timestamp = mes + dia + hora + "2020";
+        //cout <<"mes: " <<mes << endl;
+        //cout <<"dia: "<< dia << endl;
+        //cout <<"Hora: "<< hora << endl;
+        cout <<"timestamp" <<timestamp << endl;
         long unix = getTime(timestamp);
+        cout <<"unix: " << unix << endl;
         string ipAddress = vectorTemporal.at(3);
         string error = vectorTemporal.at(4);
         /*
@@ -203,9 +181,6 @@ vector<Historial> separador(ifstream &bitacora){
     }
   cout << valoresFin[1].error << endl;
   Quicksort(valoresFin);
-  for(int i = 0; i < 5;i++){
-        cout << valoresFin[i].unix << endl;
-  }
   return valoresFin;
 }
 
@@ -234,8 +209,8 @@ int main(){
    mes = "Feb";
    dia = "15";
    tiempo = "10:25:30";
-   junto = mes + dia + tiempo;
-   cout<<junto<<endl;
+   junto = mes + dia + tiempo+"2021";
+   cout<< junto <<endl;
     primaunix = getTime(junto);
     cout<<primaunix<<endl;
     arreglo = separador(bitacora);
