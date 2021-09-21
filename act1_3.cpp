@@ -1,4 +1,15 @@
-#include  <vector>
+/*
+Autores:
+Alexis Gibrán Acosta Pánuco - A01639818
+Jorge Plasencia Ahm Jorgensen - A01637493
+Emmanuel Humberto Solórzano Cabrera - A01640284
+
+Descripción:
+Programa que recibe un archivo de texto con diversas líneas de datos compuestos por mes, día, hora, ip y un error. Dichos datos son separados y acomodados dentro de un vector de
+clase "Historial", los cuales son ordenados por fecha y mostrados en un archivo de texto delimitado por el usuario.
+*/
+
+#include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -154,7 +165,7 @@ vector<Historial> separador(ifstream &bitacora){
 void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){
     for (int i =0;i < arreglo.size(); i++){
         if(arreglo.at(i).unix >= primerUnix && arreglo.at(i).unix <= ultimoUnix){
-            resultados << arreglo.at(i).mes << " " << arreglo.at(i).dia << " " << arreglo.at(i).hora << " " << arreglo.at(i).error << endl;
+            resultados << arreglo.at(i).mes << " " << arreglo.at(i).dia << " " << arreglo.at(i).hora << " " << arreglo.at(i).ipAddress << " " << arreglo.at(i).error << endl;
         }
     }
 }
