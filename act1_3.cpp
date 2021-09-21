@@ -12,10 +12,6 @@ class Historial{
         string mes, hora, ipAddress, error, dia;
 };
 
-void cambiarTxt(vector<Historial> &valoresFin, ofstream &resultados, int i){
-    resultados << valoresFin.at(i).mes + " " + valoresFin.at(i).dia;
-}
-
 long getTime(string hora){
     tm t;{};
     istringstream ss(hora);
@@ -155,6 +151,16 @@ vector<Historial> separador(ifstream &bitacora){
 }
 
 
+void escribirTxt(vector<Historial> &arreglo,long primerUnix, long ultimoUnix,ofstream &resultados){
+    cout << "entra a la funcion" << endl;
+    for (int i =0;i < arreglo.size(); i++){
+        cout <<"f0r" <<endl;
+        if(arreglo.at(i).unix >= primerUnix && arreglo.at(i).unix <= ultimoUnix){
+            cout << "entra if" <<endl;
+            resultados << arreglo.at(i).mes << " " << arreglo.at(i).dia << " " << arreglo.at(i).hora << " " << arreglo.at(i).error << endl;
+        }
+    }
+}
 
 int main(){
     ofstream resultados("Resultados.txt");
@@ -180,7 +186,7 @@ int main(){
 
     junto = mes + dia + tiempo+"2020";
     primaunix = getTime(junto);
-    index = busqSecuencial(arreglo,primaunix);
+    //index = busqSecuencial(arreglo,primaunix);
 
     cout << "Ingresa el dia (dd) de busqueda final: " << endl;
     cin >> dia;
@@ -193,17 +199,10 @@ int main(){
 
     ultimaunix = getTime(ultijunto);
 
-    index2 = busqSecuencial(arreglo,ultimaunix);
-    for(int i = index;index <= index2;i++){
-        cout<< "" <<endl;
-    }
     ultimaunix = getTime(ultijunto);
 
-    index2 = busqSecuencial(arreglo,ultimaunix);
 
-    for(int i = index; i <= index2; i++){
-        cambiarTxt(arreglo, resultados,i);
-    }
+    escribirTxt(arreglo,primaunix,ultimaunix,resultados);
     resultados.close();
     return 0;
 }
