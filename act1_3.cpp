@@ -137,7 +137,7 @@ void getValues(vector<string> &vectorTemporal, vector<Historial> &valoresFin){
 void separador(ifstream &bitacora){
     string str;
     string strTemp;
-    vector<string> vectorTemporal{"0","0","0","0","0"};
+    vector<string> vectorTemporal(5,"0");
     vector<Historial> valoresFin;
 
 
