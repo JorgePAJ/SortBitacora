@@ -181,6 +181,5 @@ int main(){
     lista.insertLast(6);
     lista.removeFirst();
     lista.removeLast();
-    // hola wey
     cout<<lista;
 }
