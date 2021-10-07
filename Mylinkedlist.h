@@ -1,6 +1,7 @@
 #ifndef MyLinkedList_H
 #define MyLinkedList_H
 #include <iostream>
+#include "Historial.h"
 using namespace std;
 
 struct MyNodeLL{
@@ -24,9 +25,9 @@ public:
     ~MyLinkedList();
     int length();
     bool isEmpty();
-    int First();
-    int Last();
-    int getAt(int pos);
+    Historial First();
+    Historial Last();
+    Historial getAt(int pos);
     void setAt(Historial data, int pos);
     void insertFirst(Historial data);
     void insertLast(Historial data);

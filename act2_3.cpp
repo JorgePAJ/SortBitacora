@@ -1,32 +1,15 @@
 #include "MyLinkedList.h"
 #include <string>
 #include <fstream>
+#include "Historial.h"
 using namespace std;
 
-class Historial{ 
-    public:
-        string mes, hora, ipAddress, error, dia; 
-};
 
-// Constructor de la clase
-Historial Builder(string mes, string dia, string hora, string ipAddress, string error){ 
-    Historial Historial;
-    Historial.mes = mes;
-    Historial.dia = dia;
-    Historial.hora = hora;
-    Historial.ipAddress = ipAddress;
-    Historial.error = error;
-    
-return Historial; // Regresamos el nuevo objeto
-}
 
 MyNodeLL separador(ifstream &bitacora){
     string str, strTemp;
-    MyNodeLL* nodoRetorno;
-    Historial data;
     int counter = 0;
     int i = 0;
-    int builderCounter = 0;
     string mes, dia, hora, ipAddress, error;
     while(getline(bitacora, str)){
         counter = 0;
@@ -55,7 +38,8 @@ MyNodeLL separador(ifstream &bitacora){
         }
         error = strTemp;
         strTemp = "";
-        data = Builder(mes,dia,hora,ipAddress,error);
+        Historial data (mes,dia,hora,ipAddress,error);
+        MyNodeLL* nodoRetorno = new MyNodeLL(data,nodoRetorno->next);
     }
 }
 int main(){ 

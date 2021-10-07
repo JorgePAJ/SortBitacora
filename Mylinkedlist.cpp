@@ -1,5 +1,7 @@
-//Alexis Gibrán Acosta Pánuco A01639818
 /*
+Alexis Gibrán Acosta Pánuco A01639818
+Jorge Plasencia Ahm Jorgensen A01637493
+
 Este Trabajo lo hice en conjunto con mi compañera Sofia del Pilar Batiz Martinez en las funciones setat, insertat y removeat por que se nos complico un poco el resto,
 fue sacado del libro de texto y algunos videos que explicaban como insertar ya que el metodo insertlast del libro no funcionaba
 
@@ -8,6 +10,7 @@ asi como insertar en una posicion ya existente.
 nota: el setAt lo interpretamos que el valor en esa posicion era remplazado por el nuevo en vez de agregar uno nuevo en esa posicion y se sume
 */
 #include "MyLinkedList.h"
+#include "Historial.h"
 #include <iostream>
 #include <limits>
 using namespace std;
@@ -36,17 +39,17 @@ bool MyLinkedList::isEmpty(){
 }
 
 //declara el objeto First
-int MyLinkedList::First(){
+Historial MyLinkedList::First(){
     return this->first->data;
 }
 
 //declara el objeto last
-int MyLinkedList::Last(){
+Historial MyLinkedList::Last(){
     return this->last->data;
 }
 
 //Obtiene el valor en una posicion, complejidad O(n)
-int MyLinkedList::getAt(int pos){
+Historial MyLinkedList::getAt(int pos){
         if(pos>= 0 && pos<this->size){
             MyNodeLL* current = this->first;
             for(int i =0;i<pos;i++){
@@ -59,7 +62,7 @@ int MyLinkedList::getAt(int pos){
 }
 
 //sustituye un valor en una posicion, complejidad O(n)
-void MyLinkedList::setAt(int data,int pos){
+void MyLinkedList::setAt(Historial data,int pos){
     if(pos >= 0 && pos <this->size){
         MyNodeLL* tmp = this->first;
         MyNodeLL* elimina;
@@ -77,7 +80,7 @@ void MyLinkedList::setAt(int data,int pos){
 }
 
 //Funcion que inserta un nodo al principio, Complejidad O(1)
-void MyLinkedList::insertFirst(int data){
+void MyLinkedList::insertFirst(Historial data){
     this->first = new MyNodeLL(data,this->first);
     if(this->size == 0){
         this->last = this->first;
@@ -86,7 +89,7 @@ void MyLinkedList::insertFirst(int data){
 }
 
 //Funcion que inserta un nodo al final, complejidad O(1) 
-void MyLinkedList::insertLast(int data){
+void MyLinkedList::insertLast(Historial data){
 	this->last->next = new MyNodeLL(data);
 	if (this->size == 0){
 		this ->last =this->first;
@@ -95,7 +98,7 @@ void MyLinkedList::insertLast(int data){
 }
 
 //Funcion que inserta en una posicion, complejidad O(log n)
-void MyLinkedList::inserAt(int data, int pos){
+void MyLinkedList::inserAt(Historial data, int pos){
      if(pos >= 0 && pos <this->size){
         MyNodeLL*  tmp = new MyNodeLL(data);
         MyNodeLL*  next = new MyNodeLL(data);
@@ -173,6 +176,7 @@ void MyLinkedList::removeAt(int pos){
 
 //INSERTAR SU MAIN AQUI:)
 int main(){
+   /* 
     MyLinkedList lista;
     lista.insertFirst(4);
     lista.insertFirst(2);
@@ -182,4 +186,5 @@ int main(){
     lista.removeFirst();
     lista.removeLast();
     cout<<lista;
+    */
 }
