@@ -4,14 +4,14 @@
 using namespace std;
 
 struct MyNodeLL{
-    int data;
+    Historial data;
     MyNodeLL* next;
 
-    MyNodeLL(int data,MyNodeLL* next){
+    MyNodeLL(Historial data,MyNodeLL* next){
         this->data = data;
         this->next = next;
     }
-    MyNodeLL(int data):MyNodeLL(data,nullptr){}
+    MyNodeLL(Historial data):MyNodeLL(data,nullptr){}
 };
 
 class MyLinkedList{
@@ -27,10 +27,10 @@ public:
     int First();
     int Last();
     int getAt(int pos);
-    void setAt(int data, int pos);
-    void insertFirst(int data);
-    void insertLast(int data);
-    void inserAt(int data, int pos);//pos:[0,size] Exc invalidad_argument
+    void setAt(Historial data, int pos);
+    void insertFirst(Historial data);
+    void insertLast(Historial data);
+    void inserAt(Historial data, int pos);//pos:[0,size] Exc invalidad_argument
     void removeFirst();
     void removeLast();
     void removeAt(int pos);
