@@ -7,26 +7,26 @@ Este Programa se encarga de manipular una lista apartir de punteros, cada funcio
 asi como insertar en una posicion ya existente.
 nota: el setAt lo interpretamos que el valor en esa posicion era remplazado por el nuevo en vez de agregar uno nuevo en esa posicion y se sume
 */
-#include "Mylinkedlist.h"
+#include "MyLinkedList.h"
 #include <iostream>
 #include <limits>
 using namespace std;
 
 //Constructor
-Mylinkedlist::Mylinkedlist(){ //O(1)
+MyLinkedList::MyLinkedList(){ //O(1)
     this->size = 0;
     this->first = this->last = nullptr;
 }
 
 //Destructor
-Mylinkedlist::~Mylinkedlist(){
+MyLinkedList::~MyLinkedList(){
 }
 
-int Mylinkedlist::length(){
+int MyLinkedList::length(){
     return this->size;
 }
 
-bool Mylinkedlist::isEmpty(){
+bool MyLinkedList::isEmpty(){
     return this->size==0;
     if(this->size==0){
         return true;
@@ -36,17 +36,17 @@ bool Mylinkedlist::isEmpty(){
 }
 
 //declara el objeto First
-int Mylinkedlist::First(){
+int MyLinkedList::First(){
     return this->first->data;
 }
 
 //declara el objeto last
-int Mylinkedlist::Last(){
+int MyLinkedList::Last(){
     return this->last->data;
 }
 
 //Obtiene el valor en una posicion, complejidad O(n)
-int Mylinkedlist::getAt(int pos){
+int MyLinkedList::getAt(int pos){
         if(pos>= 0 && pos<this->size){
             MyNodeLL* current = this->first;
             for(int i =0;i<pos;i++){
@@ -59,7 +59,7 @@ int Mylinkedlist::getAt(int pos){
 }
 
 //sustituye un valor en una posicion, complejidad O(n)
-void Mylinkedlist::setAt(int data,int pos){
+void MyLinkedList::setAt(int data,int pos){
     if(pos >= 0 && pos <this->size){
         MyNodeLL* tmp = this->first;
         MyNodeLL* elimina;
@@ -77,7 +77,7 @@ void Mylinkedlist::setAt(int data,int pos){
 }
 
 //Funcion que inserta un nodo al principio, Complejidad O(1)
-void Mylinkedlist::insertFirst(int data){
+void MyLinkedList::insertFirst(int data){
     this->first = new MyNodeLL(data,this->first);
     if(this->size == 0){
         this->last = this->first;
@@ -86,7 +86,7 @@ void Mylinkedlist::insertFirst(int data){
 }
 
 //Funcion que inserta un nodo al final, complejidad O(1) 
-void Mylinkedlist::insertLast(int data){
+void MyLinkedList::insertLast(int data){
 	this->last->next = new MyNodeLL(data);
 	if (this->size == 0){
 		this ->last =this->first;
@@ -95,7 +95,7 @@ void Mylinkedlist::insertLast(int data){
 }
 
 //Funcion que inserta en una posicion, complejidad O(log n)
-void Mylinkedlist::inserAt(int data, int pos){
+void MyLinkedList::inserAt(int data, int pos){
      if(pos >= 0 && pos <this->size){
         MyNodeLL*  tmp = new MyNodeLL(data);
         MyNodeLL*  next = new MyNodeLL(data);
@@ -122,7 +122,7 @@ void Mylinkedlist::inserAt(int data, int pos){
 }
 
 //Funcion que remueve el primer nodo, complejidad O(n)
-void Mylinkedlist::removeFirst(){
+void MyLinkedList::removeFirst(){
     if(this->size > 0){
     MyNodeLL* tmp = this->first;
     this->first = this->first->next;
@@ -137,7 +137,7 @@ void Mylinkedlist::removeFirst(){
 }
 
 //Funcion que remueve el nodo final, complejidad O(log n)
-void Mylinkedlist::removeLast(){
+void MyLinkedList::removeLast(){
 	if(this->size > 0){
 		MyNodeLL *tmp =this-> first;
 		MyNodeLL *current;
@@ -155,7 +155,7 @@ void Mylinkedlist::removeLast(){
 }
     
 //Funcion que elimina un nodo en una posicion, complejidad O(n)
-void Mylinkedlist::removeAt(int pos){
+void MyLinkedList::removeAt(int pos){
     if(pos > 0 && pos <this->size){
     MyNodeLL* tmp = this->first;
     MyNodeLL* elimina;
@@ -173,7 +173,7 @@ void Mylinkedlist::removeAt(int pos){
 
 //INSERTAR SU MAIN AQUI:)
 int main(){
-    Mylinkedlist lista;
+    MyLinkedList lista;
     lista.insertFirst(4);
     lista.insertFirst(2);
     lista.inserAt(3,1);

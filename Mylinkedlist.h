@@ -1,5 +1,5 @@
-#ifndef MYLINKEDLIST_H
-#define MYLINKEDLIST_H
+#ifndef MyLinkedList_H
+#define MyLinkedList_H
 #include <iostream>
 using namespace std;
 
@@ -14,14 +14,14 @@ struct MyNodeLL{
     MyNodeLL(int data):MyNodeLL(data,nullptr){}
 };
 
-class Mylinkedlist{
+class MyLinkedList{
 private:
     MyNodeLL* first;
     MyNodeLL* last;
     int size;
 public:
-    Mylinkedlist();
-    ~Mylinkedlist();
+    MyLinkedList();
+    ~MyLinkedList();
     int length();
     bool isEmpty();
     int First();
@@ -34,7 +34,7 @@ public:
     void removeFirst();
     void removeLast();
     void removeAt(int pos);
-    friend ostream& operator<<(ostream& os,const Mylinkedlist& ll){
+    friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
         MyNodeLL* current = ll.first;
         for(int i = 0; i <= ll.size;i++){
             os<<current->data<<",";
