@@ -16,5 +16,6 @@ public:
         this->ipAddress = ipAddress;
         this->error = error;
     }
+    Historial(){}
 };
 #endif

@@ -14,7 +14,9 @@ struct MyNodeLL
         this->data = data;
         this->next = next;
     }
-    MyNodeLL(Historial data) : MyNodeLL(data, nullptr) {}
+    MyNodeLL(Historial data) : MyNodeLL(data, nullptr) {
+        this->data = data;
+    }
 };
 
 class MyLinkedList
@@ -39,15 +41,15 @@ public:
     void removeFirst();
     void removeLast();
     void removeAt(int pos);
-    /*friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
+    friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
         MyNodeLL* current = ll.first;
         for(int i = 0; i <= ll.size;i++){
-            os<<current->data<<",";
+            os << current->data.ipAddress << ",";
             current=current->next;
         }
         return os;
     }
-*/
+
 };
 
 #endif

@@ -1,56 +1,83 @@
 #include "MyLinkedList.h"
 #include <string>
 #include <fstream>
+#include <sstream>
 #include "Historial.h"
 using namespace std;
 
-MyNodeLL separador(ifstream &bitacora)
+MyLinkedList separador(ifstream &bitacora)
 {
-    string str, strTemp;
-    int counter = 0;
-    int i = 0;
-    string mes, dia, hora, ipAddress, error;
+    string str, strTemp, mes, dia, hora, ipAddress, error;
+    int counter = 0, i = 0, k=0;
+    MyLinkedList new_list;
     while (getline(bitacora, str))
-    {
-        counter = 0;
-        while (counter < 4)
+    {   
+        string line;
+        while (getline(bitacora, line))
         {
-            if (str[i] != ' ')
-            {
-                strTemp += str[i];
-            }
-            else
-            {
-                switch (counter)
+            string temp;
+            stringstream buff(line);
+
+            for (int h=0; h<4; h++){
+                getline(buff, temp, ' ');
+                switch (h)
                 {
                 case 0: // Caso 0: Mes
-                    mes = strTemp;
-                    strTemp = "";
+                    mes = temp;
                 case 1: // Caso 1: Dia
-                    dia = strTemp;
-                    strTemp = "";
+                    dia = temp;
                 case 2: // Caso 2: Hora
-                    hora = strTemp;
-                    strTemp = "";
+                    hora = temp;
                 case 3: // Caso 3: Ip
-                    ipAddress = strTemp;
-                    strTemp = "";
+                    ipAddress = temp;
                 }
             }
+            // Sin delimitador
+            getline(buff, temp);
+            error = temp;
+
+            Historial data(mes, dia, hora, ipAddress, error);
+            new_list = MyLinkedList();      
+            new_list.insertLast(data);
+            // if (k == 0){
+            //     // head goes here
+            //     new_list.insertFirst(data);
+            //     k++;
+            // } else {
+            //     // tail goes here
+            //     new_list.insertLast(data);
+            // }
         }
-        for (int j = i; j < str.length(); j++)
-        {
-            strTemp += str[j]; // Se vuelve a armar el string del error.
-        }
-        error = strTemp;
-        strTemp = "";
-        Historial data(mes, dia, hora, ipAddress, error);
-        MyNodeLL *nodoRetorno = new MyNodeLL(data, nodoRetorno->next);
     }
+  return new_list;
 }
 
 int main()
 {
+    ifstream bitacora;
+    bitacora.open("bitacora_head.txt");
+    if(!bitacora) { // Sirve para decirnos cuando no se carga el archivo txt
+        cout << "No se abrio el archivo correctamente" << endl;
+        return 1;
+    }   
+    MyLinkedList bruh = separador(bitacora);
+    cout << "Size " << bruh.length() << endl;
 
+    cout << endl << "FIRST:" << endl;
+    cout << "Dia:\t"   << bruh.First().dia << endl;
+    cout << "Mes:\t"   << bruh.First().mes << endl;
+    cout << "IP:\t"    << bruh.First().ipAddress << endl;
+    cout << "Error:\t" << bruh.First().error << endl;
+
+    cout << endl << "LAST:" << endl;
+    cout << "Dia:\t"   << bruh.Last().dia << endl;
+    cout << "Mes:\t"   << bruh.Last().mes << endl;
+    cout << "IP:\t"    << bruh.Last().ipAddress << endl;
+    cout << "Error:\t" << bruh.Last().error << endl;
+
+    cout << endl << "bruh 3" << endl;
+
+    
+    //cuantos ingenieros se necesitan para escribir length
     return 0;
 }

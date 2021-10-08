@@ -1,0 +1,2 @@
+ language = "cpp"
+run = "g++ act2_3.cpp MyLinkedList.cpp && ./a.out"
