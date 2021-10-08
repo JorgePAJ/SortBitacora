@@ -47,6 +47,7 @@ public:
         }
         return os;
     }
-};
 */
+};
+
 #endif
