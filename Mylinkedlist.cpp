@@ -16,167 +16,214 @@ nota: el setAt lo interpretamos que el valor en esa posicion era remplazado por 
 using namespace std;
 
 //Constructor
-MyLinkedList::MyLinkedList(){ //O(1)
+MyLinkedList::MyLinkedList()
+{ //O(1)
     this->size = 0;
     this->first = this->last = nullptr;
 }
 
 //Destructor
-MyLinkedList::~MyLinkedList(){
+MyLinkedList::~MyLinkedList()
+{
 }
 
-int MyLinkedList::length(){
+int MyLinkedList::length()
+{
     return this->size;
 }
 
-bool MyLinkedList::isEmpty(){
-    return this->size==0;
-    if(this->size==0){
+bool MyLinkedList::isEmpty()
+{
+    return this->size == 0;
+    if (this->size == 0)
+    {
         return true;
-    }else{
+    }
+    else
+    {
         return false;
     }
 }
 
 //declara el objeto First
-Historial MyLinkedList::First(){
+Historial MyLinkedList::First()
+{
     return this->first->data;
 }
 
 //declara el objeto last
-Historial MyLinkedList::Last(){
+Historial MyLinkedList::Last()
+{
     return this->last->data;
 }
 
 //Obtiene el valor en una posicion, complejidad O(n)
-Historial MyLinkedList::getAt(int pos){
-        if(pos>= 0 && pos<this->size){
-            MyNodeLL* current = this->first;
-            for(int i =0;i<pos;i++){
-                current=current->next;
+Historial MyLinkedList::getAt(int pos)
+{
+    if (pos >= 0 && pos < this->size)
+    {
+        MyNodeLL *current = this->first;
+        for (int i = 0; i < pos; i++)
+        {
+            current = current->next;
         }
         return current->data;
-    }else{
-        throw invalid_argument("No se puede acceder a la posicion" +to_string(pos)+" en una lista de tamaño"+to_string(this->size));
+    }
+    else
+    {
+        throw invalid_argument("No se puede acceder a la posicion" + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
     }
 }
 
 //sustituye un valor en una posicion, complejidad O(n)
-void MyLinkedList::setAt(Historial data,int pos){
-    if(pos >= 0 && pos <this->size){
-        MyNodeLL* tmp = this->first;
-        MyNodeLL* elimina;
-        for(int i = 0; i < pos-1;i++){
+void MyLinkedList::setAt(Historial data, int pos)
+{
+    if (pos >= 0 && pos < this->size)
+    {
+        MyNodeLL *tmp = this->first;
+        MyNodeLL *elimina;
+        for (int i = 0; i < pos - 1; i++)
+        {
             tmp = tmp->next;
         }
         elimina = tmp->next;
         tmp->next = elimina->next;
         delete elimina;
-        MyNodeLL* nuevo = new MyNodeLL(data,tmp->next);
-            tmp->next = nuevo;
-    }else{
-        throw invalid_argument("No se puede acceder a la posicion" +to_string(pos)+" en una lista de tamaño"+to_string(this->size));
+        MyNodeLL *nuevo = new MyNodeLL(data, tmp->next);
+        tmp->next = nuevo;
+    }
+    else
+    {
+        throw invalid_argument("No se puede acceder a la posicion" + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
     }
 }
 
 //Funcion que inserta un nodo al principio, Complejidad O(1)
-void MyLinkedList::insertFirst(Historial data){
-    this->first = new MyNodeLL(data,this->first);
-    if(this->size == 0){
+void MyLinkedList::insertFirst(Historial data)
+{
+    this->first = new MyNodeLL(data, this->first);
+    if (this->size == 0)
+    {
         this->last = this->first;
     }
-    this->size++;    
+    this->size++;
 }
 
-//Funcion que inserta un nodo al final, complejidad O(1) 
-void MyLinkedList::insertLast(Historial data){
-	this->last->next = new MyNodeLL(data);
-	if (this->size == 0){
-		this ->last =this->first;
-	}
-	this->size++;
+//Funcion que inserta un nodo al final, complejidad O(1)
+void MyLinkedList::insertLast(Historial data)
+{
+    this->last->next = new MyNodeLL(data);
+    if (this->size == 0)
+    {
+        this->last = this->first;
+    }
+    this->size++;
 }
 
 //Funcion que inserta en una posicion, complejidad O(log n)
-void MyLinkedList::inserAt(Historial data, int pos){
-     if(pos >= 0 && pos <this->size){
-        MyNodeLL*  tmp = new MyNodeLL(data);
-        MyNodeLL*  next = new MyNodeLL(data);
-        MyNodeLL*  nuevo = new MyNodeLL(data); 
+void MyLinkedList::inserAt(Historial data, int pos)
+{
+    if (pos >= 0 && pos < this->size)
+    {
+        MyNodeLL *tmp = new MyNodeLL(data);
+        MyNodeLL *next = new MyNodeLL(data);
+        MyNodeLL *nuevo = new MyNodeLL(data);
         int tempos = 0;
         next = this->first;
-        while(next->next != nullptr && tempos != pos){
+        while (next->next != nullptr && tempos != pos)
+        {
             tmp = next;
             next = next->next;
             tempos++;
-        } 
-        if(pos == 0){
+        }
+        if (pos == 0)
+        {
             throw invalid_argument("Use la funcion de agregar al inicio");
-        }else if(next->next != nullptr && pos ==tempos+1){
+        }
+        else if (next->next != nullptr && pos == tempos + 1)
+        {
             throw invalid_argument("Use la funcion de agregar al final");
-        }else{
+        }
+        else
+        {
             tmp->next = nuevo;
             nuevo->next = next;
         }
-    }else{
-       throw invalid_argument("No se puede acceder a la posicion " +to_string(pos)+" en una lista de tamaño"+to_string(this->size));
+    }
+    else
+    {
+        throw invalid_argument("No se puede acceder a la posicion " + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
     }
     this->size++;
 }
 
 //Funcion que remueve el primer nodo, complejidad O(n)
-void MyLinkedList::removeFirst(){
-    if(this->size > 0){
-    MyNodeLL* tmp = this->first;
-    this->first = this->first->next;
-    delete tmp;
-    if(this->size == 0){
-        this->last=nullptr;
+void MyLinkedList::removeFirst()
+{
+    if (this->size > 0)
+    {
+        MyNodeLL *tmp = this->first;
+        this->first = this->first->next;
+        delete tmp;
+        if (this->size == 0)
+        {
+            this->last = nullptr;
+        }
     }
-    }else{
+    else
+    {
         throw invalid_argument("No se puede borrar el primer elemento de una lista vacia");
     }
     this->size--;
 }
 
 //Funcion que remueve el nodo final, complejidad O(log n)
-void MyLinkedList::removeLast(){
-	if(this->size > 0){
-		MyNodeLL *tmp =this-> first;
-		MyNodeLL *current;
-		while(tmp->next->next != nullptr){ //segundo ultimo nodo 
-			tmp = tmp->next;
-			current = tmp->next;
-		}
-		tmp->next = nullptr;
-		delete(current);
-		this->size--;
-	}
-	else{
-		throw invalid_argument("No se puede acceder al último elemento");
-	}
+void MyLinkedList::removeLast()
+{
+    if (this->size > 0)
+    {
+        MyNodeLL *tmp = this->first;
+        MyNodeLL *current;
+        while (tmp->next->next != nullptr)
+        { //segundo ultimo nodo
+            tmp = tmp->next;
+            current = tmp->next;
+        }
+        tmp->next = nullptr;
+        delete (current);
+        this->size--;
+    }
+    else
+    {
+        throw invalid_argument("No se puede acceder al último elemento");
+    }
 }
-    
+
 //Funcion que elimina un nodo en una posicion, complejidad O(n)
-void MyLinkedList::removeAt(int pos){
-    if(pos > 0 && pos <this->size){
-    MyNodeLL* tmp = this->first;
-    MyNodeLL* elimina;
-    for(int i = 0; i < pos-1;i++){
+void MyLinkedList::removeAt(int pos)
+{
+    if (pos > 0 && pos < this->size)
+    {
+        MyNodeLL *tmp = this->first;
+        MyNodeLL *elimina;
+        for (int i = 0; i < pos - 1; i++)
+        {
             tmp = tmp->next;
         }
-    elimina = tmp->next;
-    tmp->next = elimina->next;
-    delete elimina;
-    }else{
-        throw invalid_argument("No se puede acceder a la posicion" +to_string(pos)+" en una lista de tamaño"+to_string(this->size));
+        elimina = tmp->next;
+        tmp->next = elimina->next;
+        delete elimina;
     }
-
+    else
+    {
+        throw invalid_argument("No se puede acceder a la posicion" + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
+    }
 }
 
 //INSERTAR SU MAIN AQUI:)
-int main(){
-   /* 
+int main()
+{
+    /*
     MyLinkedList lista;
     lista.insertFirst(4);
     lista.insertFirst(2);

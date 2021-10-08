@@ -4,22 +4,26 @@
 #include "Historial.h"
 using namespace std;
 
-struct MyNodeLL{
+struct MyNodeLL
+{
     Historial data;
-    MyNodeLL* next;
+    MyNodeLL *next;
 
-    MyNodeLL(Historial data,MyNodeLL* next){
+    MyNodeLL(Historial data, MyNodeLL *next)
+    {
         this->data = data;
         this->next = next;
     }
-    MyNodeLL(Historial data):MyNodeLL(data,nullptr){}
+    MyNodeLL(Historial data) : MyNodeLL(data, nullptr) {}
 };
 
-class MyLinkedList{
+class MyLinkedList
+{
 private:
-    MyNodeLL* first;
-    MyNodeLL* last;
+    MyNodeLL *first;
+    MyNodeLL *last;
     int size;
+
 public:
     MyLinkedList();
     ~MyLinkedList();
@@ -31,11 +35,11 @@ public:
     void setAt(Historial data, int pos);
     void insertFirst(Historial data);
     void insertLast(Historial data);
-    void inserAt(Historial data, int pos);//pos:[0,size] Exc invalidad_argument
+    void inserAt(Historial data, int pos); //pos:[0,size] Exc invalidad_argument
     void removeFirst();
     void removeLast();
     void removeAt(int pos);
-    friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
+    /*friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
         MyNodeLL* current = ll.first;
         for(int i = 0; i <= ll.size;i++){
             os<<current->data<<",";
@@ -44,4 +48,5 @@ public:
         return os;
     }
 };
+*/
 #endif
