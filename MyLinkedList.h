@@ -16,6 +16,7 @@ struct MyNodeLL
     }
     MyNodeLL(Historial data) : MyNodeLL(data, nullptr) {
         this->data = data;
+        this->next = nullptr;
     }
 };
 
