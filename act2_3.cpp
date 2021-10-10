@@ -3,15 +3,57 @@
 #include <fstream>
 #include <sstream>
 #include "Historial.h"
+#include <iostream>
 using namespace std;
+
+
+void mezcla(int ini, int fin, MyLinkedList &separador){
+    Historial data;
+    int centro = (ini+fin)/2;
+    int j = ini,
+        k = centro +1,
+        size = (fin - ini + 1);
+    int datostmp[fin-1+1];
+    for(int i = 0; i < size;i++){
+        if(j <= centro && k <=fin){
+            if( separador.getAt(j).ipAddress < separador.getAt(k).ipAddress){
+                //datostmp[i] =  separador.setAt(data,j++);
+            }else{
+               // datostmp[i] =  separador.setAt(data,k++);
+            }
+        }
+        else if(j<=centro){
+            //datostmp[i] =  separador.setAt(data,j++);
+        }else{
+            //datostmp[i] =  separador.setAt(data,j++);
+        }
+    }
+    for (int m = 0; m < size; m++){
+        // separador.setAt(data,(m+ini))= datostmp[m];
+    }
+}
+void Ordenamerge(int ini,int fin,MyLinkedList &separador){//O(2log(n))
+    if(ini<fin){
+        int centro = (ini+fin)/2;
+        Ordenamerge(ini,centro,separador);
+        Ordenamerge(centro+1,fin,separador);
+        mezcla(ini,fin,separador);
+    }
+}
+
+
+void ordenaMerge(MyLinkedList &separador){ //O(n)
+    MyLinkedList fin;
+    Ordenamerge(0,fin.length(),separador);
+    return;
+
+}
 
 MyLinkedList separador(ifstream &bitacora)
 {
     string str, strTemp, mes, dia, hora, ipAddress, error;
     int counter = 0, i = 0, k=0;
-    MyLinkedList new_list = MyLinkedList();
-    while (getline(bitacora, str))
-    {   
+    MyLinkedList new_list = MyLinkedList(); 
         string line;
         while (getline(bitacora, line))
         {
@@ -47,9 +89,10 @@ MyLinkedList separador(ifstream &bitacora)
                 new_list.insertLast(data);
             }
         }
-    }
+    ordenaMerge(new_list);
   return new_list;
 }
+
 
 int main()
 {
@@ -76,7 +119,6 @@ int main()
 
     cout << endl << "bruh 3" << endl;
 
-    
     //cuantos ingenieros se necesitan para escribir length
     return 0;
 }
