@@ -51,10 +51,9 @@ void ordenaMerge(MyLinkedList &separador){ //O(n)
 
 MyLinkedList separador(ifstream &bitacora)
 {
-    string str, strTemp, mes, dia, hora, ipAddress, error;
+    string line, strTemp, mes, dia, hora, ipAddress, error;
     int counter = 0, i = 0, k=0;
-    MyLinkedList new_list = MyLinkedList(); 
-        string line;
+    MyLinkedList new_list = MyLinkedList();
         while (getline(bitacora, line))
         {
             string temp;
@@ -89,7 +88,6 @@ MyLinkedList separador(ifstream &bitacora)
                 new_list.insertLast(data);
             }
         }
-    ordenaMerge(new_list);
   return new_list;
 }
 
