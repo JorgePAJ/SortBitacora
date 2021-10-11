@@ -4,6 +4,7 @@
 #include <sstream>
 #include "Historial.h"
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 
@@ -88,8 +89,8 @@ void ordenaMerge(MyLinkedList &ll){ //O(n)
 
 MyLinkedList separador(ifstream &bitacora)
 {
-    string line, strTemp, mes, dia, hora, ipAddress, error;
-    int counter = 0, i = 0;
+    string line, strTemp, mes, dia, hora, ipAddress, error, ipPointless;
+    int ipNumber,counter = 0, i = 0;
     MyLinkedList new_list = MyLinkedList();
         while (getline(bitacora, line))
         {
@@ -97,6 +98,7 @@ MyLinkedList separador(ifstream &bitacora)
             stringstream buff(line);
 
             for (int h=0; h<4; h++){
+                temp = "";
                 getline(buff, temp, ' ');
                 switch (h)
                 {
@@ -107,14 +109,21 @@ MyLinkedList separador(ifstream &bitacora)
                 case 2: // Caso 2: Hora
                     hora = temp;
                 case 3: // Caso 3: Ip
+                    cout << "temp:\t" << temp << endl;
                     ipAddress = temp;
+                    ipPointless = ipAddress;
+                    ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), '.'), ipPointless.end());
+                    ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), ':'), ipPointless.end());
+                    cout << "ipPointless:\t" << ipPointless <<endl;                   
+                    // ipNumber = stoi(ipPointless);
+                    // cout << "IpNumber:\t" << ipNumber << endl;
                 }
             }
             // Sin delimitador
             getline(buff, temp);
             error = temp;
 
-            Historial data(mes, dia, hora, ipAddress, error);    
+            Historial data(mes, dia, hora, ipAddress, error, ipNumber);    
             new_list.insertLast(data);
         }
   return new_list;
@@ -135,6 +144,7 @@ int main()
     cout << endl << "FIRST:" << endl;
     cout << "Dia:\t"   << bruh.First().dia << endl;
     cout << "Mes:\t"   << bruh.First().mes << endl;
+    cout << "Hora:\t"  << bruh.First().hora << endl;
     cout << "IP:\t"    << bruh.First().ipAddress << endl;
     cout << "Error:\t" << bruh.First().error << endl;
 
@@ -151,6 +161,7 @@ int main()
     cout << endl << "FIRST:" << endl;
     cout << "Dia:\t"   << bruh.First().dia << endl;
     cout << "Mes:\t"   << bruh.First().mes << endl;
+    cout << "Hora:\t"  << bruh.First().hora << endl;
     cout << "IP:\t"    << bruh.First().ipAddress << endl;
     cout << "Error:\t" << bruh.First().error << endl;
 
