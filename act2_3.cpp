@@ -14,16 +14,22 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
     MyLinkedList new_list = MyLinkedList(); 
     int centro = (ini+fin)/2;
     int j = ini,
-        k = centro +1,
+        k = centro + 1,
         size = (fin - ini + 1);
     cout << "bruh 4.9" << endl;
     int datostmp[fin-1+1];
     
     for(int i = 0; i < size;i++){
+        cout << "fin:\t" << fin <<endl;
+        cout << "centro:\t" << centro << endl;
+        cout << "j:\t" << j << endl;
+        cout << "k:\t" << k << endl;
         cout << "fooor" <<endl;
         if(j <= centro && k <=fin){
           cout<<"iiiiiiff" << endl;
-            if( ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){
+          cout << ll.getAt(j).ipNumber << endl;
+          cout << ll.getAt(k).ipNumber<<endl;
+            if( ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){ 
                 //datostmp[i] =  separador.setAt(data,j++);
               cout << "entra if" << endl;
               new_list.insertLast(ll.getAt(j++));
@@ -67,8 +73,9 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
   ll = new_list;
 }
 
-void Ordenamerge(int ini,int fin,MyLinkedList &ll){//O(2log(n))
+void Ordenamerge(int ini,int fin,MyLinkedList &ll){
     if(ini<fin){
+        cout <<"fin at ordena:\t"<< fin << endl;
         cout << "entra a if de ordenamerge2" << endl;
         int centro = (ini+fin)/2;
         Ordenamerge(ini,centro,ll);
@@ -79,9 +86,10 @@ void Ordenamerge(int ini,int fin,MyLinkedList &ll){//O(2log(n))
 }
 
 
-void ordenaMerge(MyLinkedList &ll){ //O(n)
+void ordenaMerge(MyLinkedList &ll){ 
     cout << "entra a ordena merge 1" << endl;
     MyLinkedList fin;
+    cout <<"length:\t"<< ll.length() << endl;
     Ordenamerge(0,ll.length(),ll);
     return;
 
