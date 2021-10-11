@@ -32,6 +32,7 @@ public:
     ~MyLinkedList();
     int length();
     bool isEmpty();
+    MyNodeLL* firstNode();
     Historial First();
     Historial Last();
     Historial getAt(int pos);

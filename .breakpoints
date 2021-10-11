@@ -3,23 +3,9 @@
     "MyLinkedList.cpp": [
       {
         "id": "7dc0222f-af3b-4ce2-b513-3d5c65700d8b",
-        "line": 120,
-        "version": 20,
-        "index": 2971
-      }
-    ],
-    "act2_3.cpp": [
-      {
-        "id": "dd6f6543-ffe1-4e5f-895d-70a753c9d7e2",
-        "line": 37,
-        "version": 2062,
-        "index": 1038
-      },
-      {
-        "id": "e34e1786-e73b-47c8-999b-752b0b7213ed",
-        "line": 47,
-        "version": 2056,
-        "index": 1340
+        "line": 54,
+        "version": 176,
+        "index": 1337
       }
     ]
   }

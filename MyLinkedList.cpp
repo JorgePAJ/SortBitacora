@@ -45,6 +45,11 @@ bool MyLinkedList::isEmpty()
     }
 }
 
+MyNodeLL* MyLinkedList::firstNode()
+{
+  return this->first;
+}
+
 //declara el objeto First
 Historial MyLinkedList::First()
 {
