@@ -65,18 +65,22 @@ Historial MyLinkedList::Last()
 //Obtiene el valor en una posicion, complejidad O(n)
 Historial MyLinkedList::getAt(int pos)
 {
+    cout <<"pos:\t"<< pos << endl;
+    cout << "this size:\t" <<this->size<<endl;
     if (pos >= 0 && pos < this->size)
     {
+        
         MyNodeLL *current = this->first;
         for (int i = 0; i < pos; i++)
         {
             current = current->next;
+            
         }
         return current->data;
     }
     else
     {
-        throw invalid_argument("No se puede acceder a la posicion" + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
+        throw invalid_argument("getAt: No se puede acceder a la posicion" + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
     }
 }
 
@@ -99,7 +103,7 @@ void MyLinkedList::setAt(Historial data, int pos)
     }
     else
     {
-        throw invalid_argument("No se puede acceder a la posicion" + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
+        throw invalid_argument("setAt: No se puede acceder a la posicion" + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
     }
 }
 
@@ -117,10 +121,30 @@ void MyLinkedList::insertFirst(Historial data)
 //Funcion que inserta un nodo al final, complejidad O(1)
 void MyLinkedList::insertLast(Historial data)
 {
+  
+    MyNodeLL* nextNode = nullptr;
+
     this->last = new MyNodeLL(data);
     if (this->size == 0)
     {
         this->first = this->last;
+        
+    } else {
+      
+
+
+      MyNodeLL* prevNode = this->first;
+      
+      std::cout << "Size " << this->size << std::endl;
+      for(int i = 1; i < this->size; i++)
+      {
+        prevNode = prevNode->next;
+      }
+      prevNode->next = this->last;
+
+
+
+
     }
     this->size++;
 }
@@ -157,7 +181,7 @@ void MyLinkedList::inserAt(Historial data, int pos)
     }
     else
     {
-        throw invalid_argument("No se puede acceder a la posicion " + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
+        throw invalid_argument("inserAt: No se puede acceder a la posicion " + to_string(pos) + " en una lista de tamaño " + to_string(this->size));
     }
     this->size++;
 }
@@ -177,7 +201,7 @@ void MyLinkedList::removeFirst()
     }
     else
     {
-        throw invalid_argument("No se puede borrar el primer elemento de una lista vacia");
+        throw invalid_argument("removeFirst: No se puede borrar el primer elemento de una lista vacia");
     }
     this->size--;
 }
@@ -221,7 +245,7 @@ void MyLinkedList::removeAt(int pos)
     }
     else
     {
-        throw invalid_argument("No se puede acceder a la posicion" + to_string(pos) + " en una lista de tamaño" + to_string(this->size));
+        throw invalid_argument("removeAt: No se puede acceder a la posicion " + to_string(pos) + " en una lista de tamaño " + to_string(this->size));
     }
 }
 

@@ -27,8 +27,11 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
         cout << "fooor" <<endl;
         if(j <= centro && k <=fin){
           cout<<"iiiiiiff" << endl;
+          cout << "ll size: " << ll.length() << endl;
+          
           cout << ll.getAt(j).ipNumber << endl;
-          cout << ll.getAt(k).ipNumber<<endl;
+          cout << ll.getAt(k).ipNumber << endl;
+
             if( ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){ 
                 //datostmp[i] =  separador.setAt(data,j++);
               cout << "entra if" << endl;
@@ -137,6 +140,7 @@ MyLinkedList separador(ifstream &bitacora)
 
             Historial data(mes, dia, hora, ipAddress, error, ipNumber);    
             new_list.insertLast(data);
+            // new_list.insertFirst(data);
         }
   return new_list;
 }
