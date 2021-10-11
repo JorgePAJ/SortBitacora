@@ -6,10 +6,10 @@ using namespace std;
 class Historial
 {
 public:
-    int ipNumber;
+    long ipNumber;
     string mes, hora, ipAddress, error, dia;
 
-    Historial(string mes, string dia, string hora, string ipAddress, string error, int ipNumber)
+    Historial(string mes, string dia, string hora, string ipAddress, string error, long ipNumber)
     {
         this->mes = mes;
         this->dia = dia;

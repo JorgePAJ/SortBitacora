@@ -23,7 +23,7 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
         cout << "fooor" <<endl;
         if(j <= centro && k <=fin){
           cout<<"iiiiiiff" << endl;
-            if( ll.getAt(j).ipAddress < ll.getAt(k).ipAddress){
+            if( ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){
                 //datostmp[i] =  separador.setAt(data,j++);
               cout << "entra if" << endl;
               new_list.insertLast(ll.getAt(j++));
@@ -90,7 +90,8 @@ void ordenaMerge(MyLinkedList &ll){ //O(n)
 MyLinkedList separador(ifstream &bitacora)
 {
     string line, strTemp, mes, dia, hora, ipAddress, error, ipPointless;
-    int ipNumber,counter = 0, i = 0;
+    int counter = 0, i = 0;
+    long ipNumber;
     MyLinkedList new_list = MyLinkedList();
         while (getline(bitacora, line))
         {
@@ -116,10 +117,9 @@ MyLinkedList separador(ifstream &bitacora)
                     ipAddress = temp;
                     ipPointless = ipAddress;
                     ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), '.'), ipPointless.end());
-                    ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), ':'), ipPointless.end());
-                    cout << "ipPointless:\t" << ipPointless <<endl;                   
-                    // ipNumber = stoi(ipPointless);
-                    // cout << "IpNumber:\t" << ipNumber << endl;
+                    ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), ':'), ipPointless.end());                  
+                    ipNumber = stol(ipPointless);
+                    cout << "IpNumber:\t" << ipNumber << endl;
                     break;
                 }
             }
