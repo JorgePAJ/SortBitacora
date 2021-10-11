@@ -115,7 +115,7 @@ void MyLinkedList::insertLast(Historial data)
     this->last = new MyNodeLL(data);
     if (this->size == 0)
     {
-        this->last = this->first;
+        this->first = this->last;
     }
     this->size++;
 }

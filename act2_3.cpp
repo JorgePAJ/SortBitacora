@@ -8,7 +8,7 @@ using namespace std;
 MyLinkedList separador(ifstream &bitacora)
 {
     string line, strTemp, mes, dia, hora, ipAddress, error;
-    int counter = 0, i = 0, k=0;
+    int counter = 0, i = 0;
     MyLinkedList new_list = MyLinkedList();
         while (getline(bitacora, line))
         {
@@ -34,15 +34,7 @@ MyLinkedList separador(ifstream &bitacora)
             error = temp;
 
             Historial data(mes, dia, hora, ipAddress, error);    
-            // new_list.insertLast(data);
-            if (k == 0){
-                // head goes here
-                new_list.insertFirst(data);
-                k++;
-            } else {
-                // tail goes here
-                new_list.insertLast(data);
-            }
+            new_list.insertLast(data);
         }
   return new_list;
 }
