@@ -104,10 +104,13 @@ MyLinkedList separador(ifstream &bitacora)
                 {
                 case 0: // Caso 0: Mes
                     mes = temp;
+                    break;
                 case 1: // Caso 1: Dia
                     dia = temp;
+                    break;
                 case 2: // Caso 2: Hora
                     hora = temp;
+                    break;
                 case 3: // Caso 3: Ip
                     cout << "temp:\t" << temp << endl;
                     ipAddress = temp;
@@ -117,6 +120,7 @@ MyLinkedList separador(ifstream &bitacora)
                     cout << "ipPointless:\t" << ipPointless <<endl;                   
                     // ipNumber = stoi(ipPointless);
                     // cout << "IpNumber:\t" << ipNumber << endl;
+                    break;
                 }
             }
             // Sin delimitador
