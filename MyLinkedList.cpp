@@ -121,8 +121,6 @@ void MyLinkedList::insertFirst(Historial data)
 void MyLinkedList::insertLast(Historial data)
 {
   
-    MyNodeLL* nextNode = nullptr;
-
     this->last = new MyNodeLL(data);
     if (this->size == 0)
     {
