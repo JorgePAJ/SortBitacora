@@ -1,5 +1,6 @@
 #include "MyLinkedList.h"
 #include <string>
+
 #include <fstream>
 #include <sstream>
 #include "Historial.h"
@@ -9,91 +10,84 @@ using namespace std;
 
 
 void mezcla(int ini, int fin, MyLinkedList &ll){
-    cout << "entra a mezcla" << endl;
-    Historial data;
-    MyLinkedList new_list = MyLinkedList(); 
-    int centro = (ini+fin)/2;
-    int j = ini,
-        k = centro + 1,
-        size = (fin - ini + 1);
-    cout << "bruh 4.9" << endl;
-    int datostmp[fin-1+1];
-    
-    for(int i = 0; i < size;i++){
-        cout << "fin:\t" << fin <<endl;
-        cout << "centro:\t" << centro << endl;
-        cout << "j:\t" << j << endl;
-        cout << "k:\t" << k << endl;
-        cout << "fooor" <<endl;
-        if(j <= centro && k <=fin){
-          cout<<"iiiiiiff" << endl;
-          cout << "ll size: " << ll.length() << endl;
+  Historial data;
+  int centro = (ini+fin)/2;
+  int j = ini,
+      k = centro + 1,
+      size = (fin - ini + 1);
+  Historial datostmp[size];
+  
+  for(int i = 0; i < size;i++){
+      cout << "fin:\t" << fin <<endl;
+      cout << "centro:\t" << centro << endl;
+      cout << "j:\t" << j << endl;
+      cout << "k:\t" << k << endl;
+      if(j <= centro && k <=fin){
+        cout << "ll size: " << ll.length() << endl;
+        
+        cout << "J " << j << endl;
+        cout << ll.getAt(j).ipNumber << endl;
+        cout << "K " << k << endl;
+        cout << ll.getAt(k).ipNumber << endl;
+
+          if( ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){ 
+            datostmp[i] = ll.getAt(j++);
+            // ll.setAt(ll.getAt(j++), i);
+            //new_list.insertLast(ll.getAt(j++));
+
+
+          }else{
+            datostmp[i] = ll.getAt(k++);
+              // datostmp[i] =  separador.setAt(data,k++);
+            //new_list.insertLast(ll.getAt(k++));
+              // ll.setAt(ll.getAt(k++), i);
+
+          }
+      }
+      else if(j<=centro){
+          //datostmp[i] =  separador.setAt(data,j++);
+        datostmp[i] = ll.getAt(j++);
+          // ll.setAt(ll.getAt(j++), i);
+
           
-          cout << ll.getAt(j).ipNumber << endl;
-          cout << ll.getAt(k).ipNumber << endl;
+      }else{
+          //datostmp[i] =  separador.setAt(data,j++);
+        datostmp[i] = ll.getAt(k++);
+        //new_list.insertLast(ll.getAt(k++));
+          
+      }
+  }
+  for (int m = 0; m < size; m++){
+  
+    ll.setAt(datostmp[m], m+ini);
+    // ll.setAt(ll.getAt(m), m+ini);
+      // separador.setAt(data,(m+ini))= datostmp[m];
+    
+  }
 
-            if( ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){ 
-                //datostmp[i] =  separador.setAt(data,j++);
-              cout << "entra if" << endl;
-              new_list.insertLast(ll.getAt(j++));
-              cout << "sale if" << endl;
-            }else{
-               // datostmp[i] =  separador.setAt(data,k++);
-               cout << "entra else" << endl;
-               new_list.insertLast(ll.getAt(k++));
-               cout << "sale else" << endl;
-               
 
-            }
-        }
-        else if(j<=centro){
-            //datostmp[i] =  separador.setAt(data,j++);
-            cout << "entra elseif" << endl;
-            new_list.insertLast(ll.getAt(j++));
-            cout << "sale elseif" << endl;
-        }else{
-            //datostmp[i] =  separador.setAt(data,j++);
-            cout << "entra else2" << endl;
-            new_list.insertLast(ll.getAt(j++));
-            cout << "sale else2" << endl;
-        }
-    }
-    for (int m = 0; m < size; m++){
-      cout << "entra for" << endl;
-      new_list.setAt(ll.getAt(m), m+ini);
-      cout << "sale for" << endl;
-        // separador.setAt(data,(m+ini))= datostmp[m];
-      
-    }
-  cout << "bruh 5" << endl;
+  // MyNodeLL *current = new_list.firstNode();
 
-  MyNodeLL *current = new_list.firstNode();
-  cout << "bruh 6" << endl;
-  while (current->next != nullptr){
-    cout << current->data.ipAddress << endl;
-    current = current->next;
-  } 
-  ll = new_list;
+  // while (current->next != nullptr){
+  //   cout << current->data.ipAddress << endl;
+  //   current = current->next;
+  // } 
+  // ll = new_list;
 }
 
-void Ordenamerge(int ini,int fin,MyLinkedList &ll){
+void Ordenamerge(int ini,int fin, MyLinkedList &ll){
     if(ini<fin){
         cout <<"fin at ordena:\t"<< fin << endl;
-        cout << "entra a if de ordenamerge2" << endl;
         int centro = (ini+fin)/2;
         Ordenamerge(ini,centro,ll);
         Ordenamerge(centro+1,fin,ll);
         mezcla(ini,fin,ll);
     }
-    cout << "no entro al if de ordenamerge 2" << endl;
 }
 
 
 void ordenaMerge(MyLinkedList &ll){ 
-    cout << "entra a ordena merge 1" << endl;
-    MyLinkedList fin;
-    cout <<"length:\t"<< ll.length() << endl;
-    Ordenamerge(0,ll.length(),ll);
+    Ordenamerge(0, ll.length()-1, ll);
     return;
 
 }
@@ -124,13 +118,22 @@ MyLinkedList separador(ifstream &bitacora)
                     hora = temp;
                     break;
                 case 3: // Caso 3: Ip
-                    cout << "temp:\t" << temp << endl;
                     ipAddress = temp;
                     ipPointless = ipAddress;
-                    ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), '.'), ipPointless.end());
-                    ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), ':'), ipPointless.end());                  
+                    int i = 0, len = ipPointless.length();
+                    while(i < len){
+                        if (!isalnum(ipPointless[i]) || ipPointless[i] == ' '){
+                            ipPointless.erase(i,1);
+                            len--;
+                        }else
+                            i++;
+                    }
+                    // ipPointless.erase(remove_if(ipPointless.begin(), ipPointless.end(), [](char c) { return !isalpha(c); } ), ipPointless.end());
+                    // ipPointless.erase(std::remove_if(ipPointless.begin(), ipPointless.end(), (int(*)(int))isalpha), ipPointless.end());
                     ipNumber = stol(ipPointless);
-                    cout << "IpNumber:\t" << ipNumber << endl;
+                    // ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), '.'), ipPointless.end());
+                    // ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), ':'), ipPointless.end());                  
+                    // ipNumber = stol(ipPointless);
                     break;
                 }
             }
@@ -188,6 +191,13 @@ int main()
     cout << "Error:\t" << bruh.Last().error << endl;
 
     cout << endl << "bruh 4" << endl;
+
+    MyNodeLL *current = bruh.firstNode();
+
+    while (current->next != nullptr){
+      cout << current->data.ipAddress << endl;
+      current = current->next;
+    } 
 
     //cuantos ingenieros se necesitan para escribir length
     return 0;

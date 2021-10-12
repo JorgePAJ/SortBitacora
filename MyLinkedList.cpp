@@ -65,8 +65,6 @@ Historial MyLinkedList::Last()
 //Obtiene el valor en una posicion, complejidad O(n)
 Historial MyLinkedList::getAt(int pos)
 {
-    cout <<"pos:\t"<< pos << endl;
-    cout << "this size:\t" <<this->size<<endl;
     if (pos >= 0 && pos < this->size)
     {
         
@@ -95,6 +93,7 @@ void MyLinkedList::setAt(Historial data, int pos)
         {
             tmp = tmp->next;
         }
+        // tmp->data = data;
         elimina = tmp->next;
         tmp->next = elimina->next;
         delete elimina;
