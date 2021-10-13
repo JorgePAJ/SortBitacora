@@ -89,16 +89,24 @@ void MyLinkedList::setAt(Historial data, int pos)
     {
         MyNodeLL *tmp = this->first;
         MyNodeLL *elimina;
-        for (int i = 0; i < pos - 1; i++)
+        for (int i = 0; i < pos ; i++)
         {
             tmp = tmp->next;
         }
+        tmp->data = data;
+        
+        /*elimina = tmp->next;
+=======
+=======
+>>>>>>> origin/ipBased
+        }
         // tmp->data = data;
         elimina = tmp->next;
+>>>>>>> origin/ipBased
         tmp->next = elimina->next;
         delete elimina;
         MyNodeLL *nuevo = new MyNodeLL(data, tmp->next);
-        tmp->next = nuevo;
+        tmp->next = nuevo;*/
     }
     else
     {

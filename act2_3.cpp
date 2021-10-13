@@ -1,11 +1,12 @@
 #include "MyLinkedList.h"
 #include <string>
-
 #include <fstream>
 #include <sstream>
 #include "Historial.h"
 #include <iostream>
 #include <algorithm>
+#include <conio.h>
+#include <string.h>
 using namespace std;
 
 
@@ -30,13 +31,51 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
         cout << "K " << k << endl;
         cout << ll.getAt(k).ipNumber << endl;
 
-          if( ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){ 
+          if( ll.getAt(j).cuadrante1 < ll.getAt(k).cuadrante1){ 
             datostmp[i] = ll.getAt(j++);
             // ll.setAt(ll.getAt(j++), i);
             //new_list.insertLast(ll.getAt(j++));
-
-
-          }else{
+          //if 1
+          }else if(ll.getAt(j).cuadrante1 == ll.getAt(k).cuadrante1){
+            if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
+              datostmp[i] = ll.getAt(j++);
+            }else if(ll.getAt(j).cuadrante2 == ll.getAt(k).cuadrante2){
+                //if 2
+                if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
+                  datostmp[i] = ll.getAt(j++);
+                }else if(ll.getAt(j).cuadrante3 == ll.getAt(k).cuadrante3){
+                  //if 3
+                  if(ll.getAt(j).cuadrante3 < ll.getAt(k).cuadrante3){
+                    datostmp[i] = ll.getAt(j++);
+                  }else if(ll.getAt(j).cuadrante3 == ll.getAt(k).cuadrante3){
+                    //if 4
+                    if(ll.getAt(j).cuadrante4 < ll.getAt(k).cuadrante4){
+                      datostmp[i] = ll.getAt(j++);
+                    }else if(ll.getAt(j).cuadrante4 == ll.getAt(k).cuadrante4){
+                      //if 5
+                      if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
+                        datostmp[i] = ll.getAt(j++);
+                      }else if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
+                        throw invalid_argument("Las Ips son iguales, siempre deben ser corregidas");
+                      }else{
+                      datostmp[i] = ll.getAt(k++);
+              
+            }
+                    }else{
+                      datostmp[i] = ll.getAt(k++);
+            }
+                  }else{
+                    datostmp[i] = ll.getAt(k++);
+            }
+                }else{
+                  datostmp[i] = ll.getAt(k++);
+            }
+            }else{
+              datostmp[i] = ll.getAt(k++);
+              
+            }
+          }
+          else{
             datostmp[i] = ll.getAt(k++);
               // datostmp[i] =  separador.setAt(data,k++);
             //new_list.insertLast(ll.getAt(k++));
@@ -92,11 +131,17 @@ void ordenaMerge(MyLinkedList &ll){
 
 }
 
+string ipAdress = {};
+
+
+
+
 MyLinkedList separador(ifstream &bitacora)
 {
-    string line, strTemp, mes, dia, hora, ipAddress, error, ipPointless;
+    string line, strTemp, mes, dia, hora, ipAddress, error, ipPointless1,ipPointless,ipPointless2,ipPointless3,ipPointless4,ipPointless5;
     int counter = 0, i = 0;
     long ipNumber;
+    long cuadrante1, cuadrante2, cuadrante3, cuadrante4, cuadrante5;
     MyLinkedList new_list = MyLinkedList();
         while (getline(bitacora, line))
         {
@@ -117,31 +162,64 @@ MyLinkedList separador(ifstream &bitacora)
                 case 2: // Caso 2: Hora
                     hora = temp;
                     break;
-                case 3: // Caso 3: Ip
-                    ipAddress = temp;
-                    ipPointless = ipAddress;
-                    int i = 0, len = ipPointless.length();
-                    while(i < len){
-                        if (!isalnum(ipPointless[i]) || ipPointless[i] == ' '){
-                            ipPointless.erase(i,1);
-                            len--;
+                    case 3: // Caso 3: Ip
+                        ipAddress = temp;
+                        ipPointless = ipAddress;
+                        char c = '.';
+                        char p = ':';
+                        int i = 0, len = ipPointless.length();
+                        stringstream bits(ipPointless);
+              
+                        while(i < len){
+                          getline(bits,ipPointless1,c);
+                          getline(bits,ipPointless2,c);
+                          getline(bits,ipPointless3,c);
+                          getline(bits,ipPointless4,p);
+                          getline(bits,ipPointless5,c);
+
+                          i++;
+                        
+                        }
+                         /* 
+                                if (!isalnum(ipPointless[i]) || ipPointless[i] == ' '){
+                                ipPointless.erase(i,1);
+                                len--;
+                                break;
+
+                        if(ipPointless.length()==14){    
+                        ipPointless1 = ipPointless.substr(0,3);
+                        ipPointless2 = ipPointless.substr(3,2);
+                        ipPointless3 = ipPointless.substr(5,3);
+                        ipPointless4 = ipPointless.substr(8,2);
+                        ipPointless5 = ipPointless.substr(10,4);
                         }else
-                            i++;
-                    }
+                              i++;
+                                }                        
+                        }  */
                     // ipPointless.erase(remove_if(ipPointless.begin(), ipPointless.end(), [](char c) { return !isalpha(c); } ), ipPointless.end());
                     // ipPointless.erase(std::remove_if(ipPointless.begin(), ipPointless.end(), (int(*)(int))isalpha), ipPointless.end());
-                    ipNumber = stol(ipPointless);
                     // ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), '.'), ipPointless.end());
                     // ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), ':'), ipPointless.end());                  
                     // ipNumber = stol(ipPointless);
+                    cuadrante1 = stol(ipPointless1);
+                    cuadrante2 = stol(ipPointless2);
+                    cuadrante3 = stol(ipPointless3);
+                    cuadrante4 = stol(ipPointless4);
+                    cuadrante5 = stol(ipPointless5);                                                                                
                     break;
                 }
             }
+            cout<< ipPointless.length()<<endl;
+            cout<<"IP: " <<ipPointless1<<endl;
+            cout<<"IP: " <<ipPointless2<<endl;
+            cout<<"IP: " <<ipPointless3<<endl;
+            cout<<"IP: " <<ipPointless4<<endl;
+            cout<<"IP: " <<ipPointless5<<endl;
             // Sin delimitador
             getline(buff, temp);
             error = temp;
 
-            Historial data(mes, dia, hora, ipAddress, error, ipNumber);    
+            Historial data(mes, dia, hora, ipAddress, error, ipNumber,cuadrante1,cuadrante2,cuadrante3,cuadrante4,cuadrante5);    
             new_list.insertLast(data);
             // new_list.insertFirst(data);
         }
