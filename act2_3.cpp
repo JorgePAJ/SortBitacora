@@ -56,7 +56,8 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
                       if(ll.getAt(j).cuadrante5 < ll.getAt(k).cuadrante5){
                         datostmp[i] = ll.getAt(j++);
                       }else if(ll.getAt(j).cuadrante5 == ll.getAt(k).cuadrante5){
-                        throw invalid_argument("Las Ips son iguales, Deben ser corregidas para evitar confusiones");
+                        datostmp[i] = ll.getAt(j++);
+
                       }else{
                       datostmp[i] = ll.getAt(k++);
               
@@ -273,7 +274,7 @@ int main()
 
     cout << "Size:\t" << bruh.length()<<endl;
     while (current != nullptr){
-      cout << current->data.ipAddress << endl;
+      cout << current->data.error << endl;
       current = current->next;
     } 
 
