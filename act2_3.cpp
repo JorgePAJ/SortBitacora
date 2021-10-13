@@ -53,10 +53,10 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
                       datostmp[i] = ll.getAt(j++);
                     }else if(ll.getAt(j).cuadrante4 == ll.getAt(k).cuadrante4){
                       //if 5
-                      if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
+                      if(ll.getAt(j).cuadrante5 < ll.getAt(k).cuadrante5){
                         datostmp[i] = ll.getAt(j++);
-                      }else if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
-                        throw invalid_argument("Las Ips son iguales, siempre deben ser corregidas");
+                      }else if(ll.getAt(j).cuadrante5 == ll.getAt(k).cuadrante5){
+                        throw invalid_argument("Las Ips son iguales, Deben ser corregidas para evitar confusiones");
                       }else{
                       datostmp[i] = ll.getAt(k++);
               
@@ -167,7 +167,7 @@ MyLinkedList separador(ifstream &bitacora)
                         ipPointless = ipAddress;
                         char c = '.';
                         char p = ':';
-                        int i = 0, len = ipPointless.length();
+                        int i = 1, len = ipPointless.length();
                         stringstream bits(ipPointless);
               
                         while(i < len){
@@ -176,7 +176,6 @@ MyLinkedList separador(ifstream &bitacora)
                           getline(bits,ipPointless3,c);
                           getline(bits,ipPointless4,p);
                           getline(bits,ipPointless5,c);
-
                           i++;
                         
                         }
@@ -272,10 +271,13 @@ int main()
 
     MyNodeLL *current = bruh.firstNode();
 
-    while (current->next != nullptr){
+    cout << "Size:\t" << bruh.length()<<endl;
+    while (current != nullptr){
       cout << current->data.ipAddress << endl;
       current = current->next;
     } 
+
+
 
     //cuantos ingenieros se necesitan para escribir length
     return 0;
