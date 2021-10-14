@@ -46,12 +46,11 @@ public:
     friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
         MyNodeLL* current = ll.first;
         for(int i = 0; i <= ll.size;i++){
-            os << current->data.dia << "," << current->data.mes << "," << current->data.hora << ","<<current->data.ipAddress  << "," << current->data.error<< ",";
+            os << current->data.dia << " " << current->data.mes << " " << current->data.hora << " "<<current->data.ipAddress  << " " << current->data.error<< " ";
             current=current->next;
         }
         return os;
     }
-
 };
 
 #endif

@@ -141,7 +141,7 @@ void escribirTxt(MyLinkedList &bruh, long primerIp, long ultimoIp, ofstream &res
   for (int i = 0; i < bruh.length(); i++){
     //If que guarda los datos en un archivo de texto mientras esten en el rango proporcionado por el usuario
     if (bruh.getAt(i).ipNumber <= primerIp && bruh.getAt(i).ipNumber >= ultimoIp){
-      resultados << bruh.getAt(i).mes << " " << bruh.getAt(i).dia << " " << bruh.getAt(i).hora << " " << bruh.getAt(i).ipAddress << " " << bruh.getAt(i).error << endl; // Aqui escribe sobre el archivo
+      resultados << bruh.getAt(i) << endl; // Aqui escribe sobre el archivo
     }
   }
 }
@@ -154,7 +154,7 @@ int main(){
   string pregunta;
   ifstream bitacora;
   ofstream ordenado("bitacoraOrdenada-Eq4.txt");
-  bitacora.open("bitacora.txt");
+  bitacora.open("bitacora_head.txt");
   if (!bitacora){ // Sirve para decirnos cuando no se carga el archivo txt
     cout << "No se abrio el archivo correctamente" << endl;
     return 1;
@@ -163,7 +163,7 @@ int main(){
   ordenaMerge(bruh);
   //Imprimi los datos ordenados en un nuevo archivo
   for (int i = 0; i < bruh.length(); i++){
-    ordenado << bruh.getAt(i).mes << " " << bruh.getAt(i).dia << " " << bruh.getAt(i).hora << " " << bruh.getAt(i).ipAddress << " " << bruh.getAt(i).error << endl;
+    ordenado << bruh.getAt(i)<< endl;
   }
   ordenado.close();
   string name;

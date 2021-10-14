@@ -18,6 +18,10 @@ public:
         this->error = error;
         this->ipNumber = ipNumber;
     }
+    friend ostream& operator<<(ostream& os,const Historial& ll){
+        os << ll.mes << " " << ll.dia << " " << ll.hora << " "<<ll.ipAddress  << " " << ll.error<< " ";
+    return os;
+}
     Historial(){}
 };
 #endif
