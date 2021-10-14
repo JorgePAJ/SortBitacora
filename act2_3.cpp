@@ -20,8 +20,6 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
       if(j <= centro && k <=fin){
           if( ll.getAt(j).cuadrante1 < ll.getAt(k).cuadrante1){ 
             datostmp[i] = ll.getAt(j++);
-            // ll.setAt(ll.getAt(j++), i);
-            //new_list.insertLast(ll.getAt(j++));
           //if 1
           }else if(ll.getAt(j).cuadrante1 == ll.getAt(k).cuadrante1){
             if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
@@ -161,10 +159,19 @@ MyLinkedList separador(ifstream &bitacora)
         }
   return new_list;
 }
+void escribirTxt(MyLinkedList &bruh,long primerIp, long ultimoIp,ofstream &resultados){ 
+    for (int i =0;i < bruh.length(); i++){
+        if(bruh.getAt(i).ipAddress == to_string(primerIp) && bruh.getAt(i).ipAddress == to_string(ultimoIp)){
+            resultados << bruh.getAt(i).mes << " " << bruh.getAt(i).dia << " " << bruh.getAt(i).hora << " " << bruh.getAt(i).ipAddress << " " << bruh.getAt(i).error << endl; // Aqui escribe sobre el archivo
+        }
+    }
+}
 
 
 int main()
-{
+{   
+    long primerIp, ultimoIp;
+    ofstream resultados("Resultados.txt");
     ifstream bitacora;
     bitacora.open("bitacora_head.txt");
     if(!bitacora) { // Sirve para decirnos cuando no se carga el archivo txt
@@ -179,8 +186,12 @@ int main()
       cout << current->data.ipAddress << endl;
       current = current->next;
     } 
-
-
+    cout << "Ingresa la primera IP: ";
+    cin >> primerIp;
+    cout << "Ingresa la segunda IP: ";
+    cin >> ultimoIp;
+    escribirTxt(bruh,primerIp,ultimoIp,resultados);
+    resultados.close();
 
     //cuantos ingenieros se necesitan para escribir length
     return 0;
