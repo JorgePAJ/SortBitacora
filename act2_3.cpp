@@ -6,7 +6,38 @@
 #include <iostream>
 #include <algorithm>
 #include <string.h>
+#include <math.h>
 using namespace std;
+
+long ipToNumber(string ip){
+    // cout << "ip: " << ip << endl;
+    long ipNumber,cuadrante1,cuadrante2,cuadrante3,cuadrante4,cuadrante5;
+    string ipPointless = ip, ipPointless1,ipPointless2,ipPointless3,ipPointless4,ipPointless5;
+    char c = '.';
+    char p = ':';
+    int i = 1, len = ipPointless.length();
+    stringstream bits(ipPointless);
+      
+    while(i < len){
+      getline(bits,ipPointless1,c);
+      getline(bits,ipPointless2,c);
+      getline(bits,ipPointless3,c);
+      getline(bits,ipPointless4,p);
+      getline(bits,ipPointless5,c);
+      i++;
+    }
+    // cout << "ippointless1: " << ipPointless1 << endl;
+    // cout << "ippointless2: " << ipPointless2 << endl;
+    // cout << "ippointless3: " << ipPointless3 << endl;
+    // cout << "ippointless4: " << ipPointless4 << endl;
+    cuadrante1 = stol(ipPointless1);
+    cuadrante2 = stol(ipPointless2);
+    cuadrante3 = stol(ipPointless3);
+    cuadrante4 = stol(ipPointless4);
+    cuadrante5 = stol(ipPointless5);
+    ipNumber = 	(cuadrante1 * 16777216) + (cuadrante2 * 65536) + (cuadrante3 * 256) + (cuadrante4);
+    return ipNumber;                       
+}
 
 void mezcla(int ini, int fin, MyLinkedList &ll){
   Historial data;
@@ -15,55 +46,13 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
       k = centro + 1,
       size = (fin - ini + 1);
   Historial datostmp[size];
-  
   for(int i = 0; i < size;i++){
       if(j <= centro && k <=fin){
-          if( ll.getAt(j).cuadrante1 < ll.getAt(k).cuadrante1){ 
-            datostmp[i] = ll.getAt(j++);
-          //if 1
-          }else if(ll.getAt(j).cuadrante1 == ll.getAt(k).cuadrante1){
-            if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
-              datostmp[i] = ll.getAt(j++);
-            }else if(ll.getAt(j).cuadrante2 == ll.getAt(k).cuadrante2){
-                //if 2
-                if(ll.getAt(j).cuadrante2 < ll.getAt(k).cuadrante2){
-                  datostmp[i] = ll.getAt(j++);
-                }else if(ll.getAt(j).cuadrante3 == ll.getAt(k).cuadrante3){
-                  //if 3
-                  if(ll.getAt(j).cuadrante3 < ll.getAt(k).cuadrante3){
-                    datostmp[i] = ll.getAt(j++);
-                  }else if(ll.getAt(j).cuadrante3 == ll.getAt(k).cuadrante3){
-                    //if 4
-                    if(ll.getAt(j).cuadrante4 < ll.getAt(k).cuadrante4){
-                      datostmp[i] = ll.getAt(j++);
-                    }else if(ll.getAt(j).cuadrante4 == ll.getAt(k).cuadrante4){
-                      //if 5
-                      if(ll.getAt(j).cuadrante5 < ll.getAt(k).cuadrante5){
-                        datostmp[i] = ll.getAt(j++);
-                      }else if(ll.getAt(j).cuadrante5 == ll.getAt(k).cuadrante5){
-                        datostmp[i] = ll.getAt(j++);
-
-                      }else{
-                      datostmp[i] = ll.getAt(k++);
-              
-            }
-                    }else{
-                      datostmp[i] = ll.getAt(k++);
-            }
-                  }else{
-                    datostmp[i] = ll.getAt(k++);
-            }
-                }else{
-                  datostmp[i] = ll.getAt(k++);
-            }
-            }else{
-              datostmp[i] = ll.getAt(k++);
-              
-            }
-          }
-          else{
-            datostmp[i] = ll.getAt(k++);
-          }
+        if(ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){
+          datostmp[i] = ll.getAt(j++);
+        }else{
+          datostmp[i] = ll.getAt(k++);
+        }
       }
       else if(j<=centro){
         datostmp[i] = ll.getAt(j++);
@@ -125,43 +114,25 @@ MyLinkedList separador(ifstream &bitacora)
                     case 3: // Caso 3: Ip
                         ipAddress = temp;
                         ipPointless = ipAddress;
-                        char c = '.';
-                        char p = ':';
-                        int i = 1, len = ipPointless.length();
-                        stringstream bits(ipPointless);
-              
-                        while(i < len){
-                          getline(bits,ipPointless1,c);
-                          getline(bits,ipPointless2,c);
-                          getline(bits,ipPointless3,c);
-                          getline(bits,ipPointless4,p);
-                          getline(bits,ipPointless5,c);
-                          i++;
-                        
-                        }
-
-                    cuadrante1 = stol(ipPointless1);
-                    cuadrante2 = stol(ipPointless2);
-                    cuadrante3 = stol(ipPointless3);
-                    cuadrante4 = stol(ipPointless4);
-                    cuadrante5 = stol(ipPointless5);                                                                                
-                    break;
+                        ipNumber = ipToNumber(ipPointless);
                 }
             }
-
             // Sin delimitador
             getline(buff, temp);
             error = temp;
 
-            Historial data(mes, dia, hora, ipAddress, error, ipNumber,cuadrante1,cuadrante2,cuadrante3,cuadrante4,cuadrante5);    
+            Historial data(mes, dia, hora, ipAddress, error, ipNumber);    
             new_list.insertLast(data);
-            // new_list.insertFirst(data);
         }
   return new_list;
 }
 void escribirTxt(MyLinkedList &bruh,long primerIp, long ultimoIp,ofstream &resultados){ 
     for (int i =0;i < bruh.length(); i++){
-        if(bruh.getAt(i).ipAddress == to_string(primerIp) && bruh.getAt(i).ipAddress == to_string(ultimoIp)){
+      // cout << "getAt(i): " << bruh.getAt(i).ipAddress<<endl;
+      // cout << "primerIp: " << primerIp<<endl;
+      // cout << "ultimoIp: " << ultimoIp<<endl<<endl;
+        if(bruh.getAt(i).ipNumber >= primerIp && bruh.getAt(i).ipNumber <= ultimoIp){
+            cout << "entro " << endl;
             resultados << bruh.getAt(i).mes << " " << bruh.getAt(i).dia << " " << bruh.getAt(i).hora << " " << bruh.getAt(i).ipAddress << " " << bruh.getAt(i).error << endl; // Aqui escribe sobre el archivo
         }
     }
@@ -170,9 +141,11 @@ void escribirTxt(MyLinkedList &bruh,long primerIp, long ultimoIp,ofstream &resul
 
 int main()
 {   
-    long primerIp, ultimoIp;
-    ofstream resultados("Resultados.txt");
+    int counter = 1;
+    string primerIp, ultimoIp; 
+    string pregunta;
     ifstream bitacora;
+    ofstream ordenado("bitacoraOrdenada-Eq4.txt");
     bitacora.open("bitacora_head.txt");
     if(!bitacora) { // Sirve para decirnos cuando no se carga el archivo txt
         cout << "No se abrio el archivo correctamente" << endl;
@@ -180,19 +153,33 @@ int main()
     }   
     MyLinkedList bruh = separador(bitacora);
     ordenaMerge(bruh);
+    
+    for (int i = 0;i<bruh.length();i++){
+       ordenado << bruh.getAt(i).mes << " " << bruh.getAt(i).dia << " " << bruh.getAt(i).hora << " " << bruh.getAt(i).ipAddress << " " << bruh.getAt(i).error << endl;
+    }
+    ordenado.close();
+
+    ipToNumber("311.49.840.89:4145");
     MyNodeLL *current = bruh.firstNode();
-
     while (current != nullptr){
-      cout << current->data.ipAddress << endl;
+     cout <<"ipnumber: "<< current->data.ipNumber <<" ipaddress: "<<current->data.ipAddress<< endl;
       current = current->next;
-    } 
-    cout << "Ingresa la primera IP: ";
-    cin >> primerIp;
-    cout << "Ingresa la segunda IP: ";
-    cin >> ultimoIp;
-    escribirTxt(bruh,primerIp,ultimoIp,resultados);
-    resultados.close();
 
-    //cuantos ingenieros se necesitan para escribir length
+    }
+    string name;
+    while(pregunta != "s"){
+      name  = "Salida"+to_string(counter)+"-Eq4";
+      name += ".txt";
+      ofstream file ( name.c_str() );
+      cout << "Ingresa la primera IP: " <<endl;
+      cin >> primerIp;
+      cout << "Ingresa la segunda IP: " << endl;
+      cin >> ultimoIp;
+      escribirTxt(bruh,ipToNumber(primerIp),ipToNumber(ultimoIp),file);
+      file.close();
+      cout << "Ingrese s para salir, o cualquier otra letra para continuar: " << endl;
+      cin >> pregunta;
+      counter++;
+    }
     return 0;
 }
