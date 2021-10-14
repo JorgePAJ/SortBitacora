@@ -163,6 +163,7 @@ int main(){
   ordenaMerge(bruh);
   
   //Exporta los datos ordenados en un nuevo archivo
+  //Complejidad O(N)
   ordenado << bruh << endl;
   
 
