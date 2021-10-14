@@ -94,19 +94,7 @@ void MyLinkedList::setAt(Historial data, int pos)
             tmp = tmp->next;
         }
         tmp->data = data;
-        
-        /*elimina = tmp->next;
-=======
-=======
->>>>>>> origin/ipBased
-        }
-        // tmp->data = data;
-        elimina = tmp->next;
->>>>>>> origin/ipBased
-        tmp->next = elimina->next;
-        delete elimina;
-        MyNodeLL *nuevo = new MyNodeLL(data, tmp->next);
-        tmp->next = nuevo;*/
+    
     }
     else
     {
@@ -140,7 +128,6 @@ void MyLinkedList::insertLast(Historial data)
 
       MyNodeLL* prevNode = this->first;
       
-      std::cout << "Size " << this->size << std::endl;
       for(int i = 1; i < this->size; i++)
       {
         prevNode = prevNode->next;

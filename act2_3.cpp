@@ -5,10 +5,8 @@
 #include "Historial.h"
 #include <iostream>
 #include <algorithm>
-#include <conio.h>
 #include <string.h>
 using namespace std;
-
 
 void mezcla(int ini, int fin, MyLinkedList &ll){
   Historial data;
@@ -19,18 +17,7 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
   Historial datostmp[size];
   
   for(int i = 0; i < size;i++){
-      cout << "fin:\t" << fin <<endl;
-      cout << "centro:\t" << centro << endl;
-      cout << "j:\t" << j << endl;
-      cout << "k:\t" << k << endl;
       if(j <= centro && k <=fin){
-        cout << "ll size: " << ll.length() << endl;
-        
-        cout << "J " << j << endl;
-        cout << ll.getAt(j).ipNumber << endl;
-        cout << "K " << k << endl;
-        cout << ll.getAt(k).ipNumber << endl;
-
           if( ll.getAt(j).cuadrante1 < ll.getAt(k).cuadrante1){ 
             datostmp[i] = ll.getAt(j++);
             // ll.setAt(ll.getAt(j++), i);
@@ -78,46 +65,23 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
           }
           else{
             datostmp[i] = ll.getAt(k++);
-              // datostmp[i] =  separador.setAt(data,k++);
-            //new_list.insertLast(ll.getAt(k++));
-              // ll.setAt(ll.getAt(k++), i);
-
           }
       }
       else if(j<=centro){
-          //datostmp[i] =  separador.setAt(data,j++);
         datostmp[i] = ll.getAt(j++);
-          // ll.setAt(ll.getAt(j++), i);
-
-          
+    
       }else{
-          //datostmp[i] =  separador.setAt(data,j++);
         datostmp[i] = ll.getAt(k++);
-        //new_list.insertLast(ll.getAt(k++));
-          
+
       }
   }
   for (int m = 0; m < size; m++){
-  
     ll.setAt(datostmp[m], m+ini);
-    // ll.setAt(ll.getAt(m), m+ini);
-      // separador.setAt(data,(m+ini))= datostmp[m];
-    
   }
-
-
-  // MyNodeLL *current = new_list.firstNode();
-
-  // while (current->next != nullptr){
-  //   cout << current->data.ipAddress << endl;
-  //   current = current->next;
-  // } 
-  // ll = new_list;
 }
 
 void Ordenamerge(int ini,int fin, MyLinkedList &ll){
     if(ini<fin){
-        cout <<"fin at ordena:\t"<< fin << endl;
         int centro = (ini+fin)/2;
         Ordenamerge(ini,centro,ll);
         Ordenamerge(centro+1,fin,ll);
@@ -133,9 +97,6 @@ void ordenaMerge(MyLinkedList &ll){
 }
 
 string ipAdress = {};
-
-
-
 
 MyLinkedList separador(ifstream &bitacora)
 {
@@ -180,27 +141,7 @@ MyLinkedList separador(ifstream &bitacora)
                           i++;
                         
                         }
-                         /* 
-                                if (!isalnum(ipPointless[i]) || ipPointless[i] == ' '){
-                                ipPointless.erase(i,1);
-                                len--;
-                                break;
 
-                        if(ipPointless.length()==14){    
-                        ipPointless1 = ipPointless.substr(0,3);
-                        ipPointless2 = ipPointless.substr(3,2);
-                        ipPointless3 = ipPointless.substr(5,3);
-                        ipPointless4 = ipPointless.substr(8,2);
-                        ipPointless5 = ipPointless.substr(10,4);
-                        }else
-                              i++;
-                                }                        
-                        }  */
-                    // ipPointless.erase(remove_if(ipPointless.begin(), ipPointless.end(), [](char c) { return !isalpha(c); } ), ipPointless.end());
-                    // ipPointless.erase(std::remove_if(ipPointless.begin(), ipPointless.end(), (int(*)(int))isalpha), ipPointless.end());
-                    // ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), '.'), ipPointless.end());
-                    // ipPointless.erase(remove(ipPointless.begin(), ipPointless.end(), ':'), ipPointless.end());                  
-                    // ipNumber = stol(ipPointless);
                     cuadrante1 = stol(ipPointless1);
                     cuadrante2 = stol(ipPointless2);
                     cuadrante3 = stol(ipPointless3);
@@ -209,12 +150,7 @@ MyLinkedList separador(ifstream &bitacora)
                     break;
                 }
             }
-            cout<< ipPointless.length()<<endl;
-            cout<<"IP: " <<ipPointless1<<endl;
-            cout<<"IP: " <<ipPointless2<<endl;
-            cout<<"IP: " <<ipPointless3<<endl;
-            cout<<"IP: " <<ipPointless4<<endl;
-            cout<<"IP: " <<ipPointless5<<endl;
+
             // Sin delimitador
             getline(buff, temp);
             error = temp;
@@ -236,45 +172,11 @@ int main()
         return 1;
     }   
     MyLinkedList bruh = separador(bitacora);
-    cout << "Size " << bruh.length() << endl;
-
-    cout << endl << "FIRST:" << endl;
-    cout << "Dia:\t"   << bruh.First().dia << endl;
-    cout << "Mes:\t"   << bruh.First().mes << endl;
-    cout << "Hora:\t"  << bruh.First().hora << endl;
-    cout << "IP:\t"    << bruh.First().ipAddress << endl;
-    cout << "Error:\t" << bruh.First().error << endl;
-
-    cout << endl << "LAST:" << endl;
-    cout << "Dia:\t"   << bruh.Last().dia << endl;
-    cout << "Mes:\t"   << bruh.Last().mes << endl;
-    cout << "IP:\t"    << bruh.Last().ipAddress << endl;
-    cout << "Error:\t" << bruh.Last().error << endl;
-
-    cout << endl << "bruh 3" << endl;
-
     ordenaMerge(bruh);
-
-    cout << endl << "FIRST:" << endl;
-    cout << "Dia:\t"   << bruh.First().dia << endl;
-    cout << "Mes:\t"   << bruh.First().mes << endl;
-    cout << "Hora:\t"  << bruh.First().hora << endl;
-    cout << "IP:\t"    << bruh.First().ipAddress << endl;
-    cout << "Error:\t" << bruh.First().error << endl;
-
-    cout << endl << "LAST:" << endl;
-    cout << "Dia:\t"   << bruh.Last().dia << endl;
-    cout << "Mes:\t"   << bruh.Last().mes << endl;
-    cout << "IP:\t"    << bruh.Last().ipAddress << endl;
-    cout << "Error:\t" << bruh.Last().error << endl;
-
-    cout << endl << "bruh 4" << endl;
-
     MyNodeLL *current = bruh.firstNode();
 
-    cout << "Size:\t" << bruh.length()<<endl;
     while (current != nullptr){
-      cout << current->data.error << endl;
+      cout << current->data.ipAddress << endl;
       current = current->next;
     } 
 
