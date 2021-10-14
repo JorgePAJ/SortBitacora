@@ -10,7 +10,6 @@
 using namespace std;
 
 long ipToNumber(string ip){
-    // cout << "ip: " << ip << endl;
     long ipNumber,cuadrante1,cuadrante2,cuadrante3,cuadrante4,cuadrante5;
     string ipPointless = ip, ipPointless1,ipPointless2,ipPointless3,ipPointless4,ipPointless5;
     char c = '.';
@@ -26,10 +25,7 @@ long ipToNumber(string ip){
       getline(bits,ipPointless5,c);
       i++;
     }
-    // cout << "ippointless1: " << ipPointless1 << endl;
-    // cout << "ippointless2: " << ipPointless2 << endl;
-    // cout << "ippointless3: " << ipPointless3 << endl;
-    // cout << "ippointless4: " << ipPointless4 << endl;
+    
     cuadrante1 = stol(ipPointless1);
     cuadrante2 = stol(ipPointless2);
     cuadrante3 = stol(ipPointless3);
@@ -48,17 +44,15 @@ void mezcla(int ini, int fin, MyLinkedList &ll){
   Historial datostmp[size];
   for(int i = 0; i < size;i++){
       if(j <= centro && k <=fin){
-        if(ll.getAt(j).ipNumber < ll.getAt(k).ipNumber){
+        if(ll.getAt(j).ipNumber > ll.getAt(k).ipNumber){
           datostmp[i] = ll.getAt(j++);
         }else{
           datostmp[i] = ll.getAt(k++);
         }
-      }
-      else if(j<=centro){
-        datostmp[i] = ll.getAt(j++);
-    
+      }else if(j<=centro){
+          datostmp[i] = ll.getAt(j++);
       }else{
-        datostmp[i] = ll.getAt(k++);
+          datostmp[i] = ll.getAt(k++);
 
       }
   }
@@ -128,11 +122,8 @@ MyLinkedList separador(ifstream &bitacora)
 }
 void escribirTxt(MyLinkedList &bruh,long primerIp, long ultimoIp,ofstream &resultados){ 
     for (int i =0;i < bruh.length(); i++){
-      // cout << "getAt(i): " << bruh.getAt(i).ipAddress<<endl;
-      // cout << "primerIp: " << primerIp<<endl;
-      // cout << "ultimoIp: " << ultimoIp<<endl<<endl;
-        if(bruh.getAt(i).ipNumber >= primerIp && bruh.getAt(i).ipNumber <= ultimoIp){
-            cout << "entro " << endl;
+
+        if(bruh.getAt(i).ipNumber <= primerIp && bruh.getAt(i).ipNumber >= ultimoIp){
             resultados << bruh.getAt(i).mes << " " << bruh.getAt(i).dia << " " << bruh.getAt(i).hora << " " << bruh.getAt(i).ipAddress << " " << bruh.getAt(i).error << endl; // Aqui escribe sobre el archivo
         }
     }
@@ -158,14 +149,6 @@ int main()
        ordenado << bruh.getAt(i).mes << " " << bruh.getAt(i).dia << " " << bruh.getAt(i).hora << " " << bruh.getAt(i).ipAddress << " " << bruh.getAt(i).error << endl;
     }
     ordenado.close();
-
-    ipToNumber("311.49.840.89:4145");
-    MyNodeLL *current = bruh.firstNode();
-    while (current != nullptr){
-     cout <<"ipnumber: "<< current->data.ipNumber <<" ipaddress: "<<current->data.ipAddress<< endl;
-      current = current->next;
-
-    }
     string name;
     while(pregunta != "s"){
       name  = "Salida"+to_string(counter)+"-Eq4";
