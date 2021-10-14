@@ -240,4 +240,3 @@ void MyLinkedList::removeAt(int pos)
         throw invalid_argument("removeAt: No se puede acceder a la posicion " + to_string(pos) + " en una lista de tamaño " + to_string(this->size));
     }
 }
-

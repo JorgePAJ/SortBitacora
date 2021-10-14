@@ -154,17 +154,18 @@ int main(){
   string pregunta;
   ifstream bitacora;
   ofstream ordenado("bitacoraOrdenada-Eq4.txt");
-  bitacora.open("bitacora.txt");
+  bitacora.open("bitacora_head.txt");
   if (!bitacora){ // Sirve para decirnos cuando no se carga el archivo txt
     cout << "No se abrio el archivo correctamente" << endl;
     return 1;
   }
   MyLinkedList bruh = separador(bitacora);
   ordenaMerge(bruh);
-  //Imprimi los datos ordenados en un nuevo archivo
-  for (int i = 0; i < bruh.length(); i++){
-    ordenado << bruh.getAt(i)<< endl;
-  }
+  
+  //Exporta los datos ordenados en un nuevo archivo
+  ordenado << bruh << endl;
+  
+
   ordenado.close();
   string name;
   while (pregunta != "s"){

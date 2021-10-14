@@ -1,6 +1,7 @@
 #ifndef MyLinkedList_H
 #define MyLinkedList_H
 #include <iostream>
+#include <fstream>
 #include "Historial.h"
 using namespace std;
 
@@ -43,10 +44,10 @@ public:
     void removeFirst();
     void removeLast();
     void removeAt(int pos);
-    friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
+    friend ofstream& operator<<(ofstream& os,const MyLinkedList& ll){
         MyNodeLL* current = ll.first;
-        for(int i = 0; i <= ll.size;i++){
-            os << current->data.dia << " " << current->data.mes << " " << current->data.hora << " "<<current->data.ipAddress  << " " << current->data.error<< " ";
+        for(int i = 0; i < ll.size;i++){
+            os << current->data << endl;;
             current=current->next;
         }
         return os;
