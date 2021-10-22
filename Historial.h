@@ -19,7 +19,7 @@ public:
         this->ipNumber = ipNumber;
     }
     friend ostream& operator<<(ostream& os,const Historial& ll){
-        os << ll.ipNumber;
+        os << ll.ipAddress.substr(0,ll.ipAddress.size()-5);
     return os;
 }
     Historial(){}
