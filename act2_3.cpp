@@ -154,7 +154,7 @@ int main(){
   string pregunta;
   ifstream bitacora;
   ofstream ordenado("bitacoraOrdenada-Eq4.txt");
-  bitacora.open("bitacora.txt");
+  bitacora.open("bitacora_head.txt");
   if (!bitacora){ // Sirve para decirnos cuando no se carga el archivo txt
     cout << "No se abrio el archivo correctamente" << endl;
     return 1;
