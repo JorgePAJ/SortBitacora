@@ -10,6 +10,7 @@ Fecha de ultima modificacion 14/10/2021
 #include <fstream>
 #include <sstream>
 #include "Historial.h"
+#include "nodoData.h"
 #include <iostream>
 #include <algorithm>
 #include <string.h>

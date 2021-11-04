@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include "nodoData.h"
 using namespace std;
 
 // Constructord de el arbol
@@ -29,7 +30,7 @@ bool MyBST::isEmpty(){
     return this->size == 0;
 }
 
-bool MyBST::search(int data){
+bool MyBST::search(NodoData data){
     MyNodeBST *temp = this->root;
     while (temp != nullptr){
         if (temp->data == data){
@@ -47,7 +48,7 @@ bool MyBST::search(int data){
 
 // Complejidad O(N)
 //Elimina un nodo del arbol.
-MyNodeBST* MyBST::remove(MyNodeBST* current, int data, bool &trigger){
+MyNodeBST* MyBST::remove(MyNodeBST* current, NodoData data, bool &trigger){
     if (current == nullptr) {
         trigger= false;
         return current;
@@ -75,7 +76,7 @@ MyNodeBST* MyBST::remove(MyNodeBST* current, int data, bool &trigger){
     return current;
 }
 //Funcion de preparacion para remover nodos
-bool MyBST::remove(int data){
+bool MyBST::remove(NodoData data){
     bool trigger = false;
     MyNodeBST* root = remove(this->root, data, trigger);
     if (root != nullptr){
@@ -87,7 +88,7 @@ bool MyBST::remove(int data){
  
  //Complejidad O(N)
  //Funcion que regresa el nivel donde el nodo esta localizado
-int MyBST::whatLevelAmI(MyNodeBST* current, int data, int level)
+int MyBST::whatLevelAmI(MyNodeBST* current, NodoData data, int level)
 {
     if (current == nullptr)
         return 0;
@@ -103,14 +104,14 @@ int MyBST::whatLevelAmI(MyNodeBST* current, int data, int level)
     return levelInf;
 }
 //Funcion de preparacion para conseguir el nivel
-int MyBST::whatLevelAmI(int data)
+int MyBST::whatLevelAmI(NodoData data)
 {
     return whatLevelAmI(this->root, data, 0);
 }
 
 // Complejidad O(n)
 // Funcion para insertar un nodo.
-MyNodeBST* MyBST::insert(MyNodeBST *current, int data){
+MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
     if (current == nullptr){
         return new MyNodeBST(data);
     }
@@ -140,7 +141,7 @@ MyNodeBST* MyBST::insert(MyNodeBST *current, int data){
     }
 }
 //Funcion de preparacion para insertar la informacion,  solo pide la data
-bool MyBST::insert(int data){
+bool MyBST::insert(NodoData data){
     if (this->root == nullptr){
         this->root = new MyNodeBST(data);
         this->size++;
@@ -180,7 +181,7 @@ int MyBST::height(){
 
 // Complejidad O(n)
 //Esta funcion imprime todos los ancestros de un nodo dado.
-bool MyBST::ancestors(int data, MyNodeBST *current, string &ancestorsString){
+bool MyBST::ancestors(NodoData data, MyNodeBST *current, string &ancestorsString){
     if (current == nullptr) {
             return false;
         }
@@ -195,7 +196,7 @@ bool MyBST::ancestors(int data, MyNodeBST *current, string &ancestorsString){
         }
 }
 //Funcion de preparacion para los ancestros
-void MyBST::ancestors(int data){
+void MyBST::ancestors(NodoData data){
     string ancestorsString;
     ancestors(data, this->root, ancestorsString);
     cout << ancestorsString << endl;
