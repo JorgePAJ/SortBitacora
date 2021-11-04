@@ -33,10 +33,10 @@ bool MyBST::isEmpty(){
 bool MyBST::search(NodoData data){
     MyNodeBST *temp = this->root;
     while (temp != nullptr){
-        if (temp->data == data){
+        if (temp->data.key == data.key){
             return true; //el dato si esta en el arbol
         }
-        else if (temp->data > data){
+        else if (temp->data.key > data.key){
             temp = temp->left;
         }
         else{
@@ -53,9 +53,9 @@ MyNodeBST* MyBST::remove(MyNodeBST* current, NodoData data, bool &trigger){
         trigger= false;
         return current;
     }
-    if (data < current->data) {
+    if (data.key < current->data.key) {
         current->left = remove(current->left, data, trigger);
-    } else if (data > current->data) {
+    } else if (data.key > current->data.key) {
         current->right = remove(current->right, data, trigger);
     } else {
         if (current->left == nullptr) {
@@ -93,7 +93,7 @@ int MyBST::whatLevelAmI(MyNodeBST* current, NodoData data, int level)
     if (current == nullptr)
         return 0;
  
-    if (current->data == data)
+    if (current->data.key == data.key)
         return level;
  
     int levelInf = whatLevelAmI(current->left, data, level + 1);
@@ -115,10 +115,10 @@ MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
     if (current == nullptr){
         return new MyNodeBST(data);
     }
-    else if (data == current->data){
+    else if (data.key == current->data.key){
         return nullptr;
     }
-    else if (data < current->data){
+    else if (data.key < current->data.key){
         MyNodeBST *nvo = insert(current->left, data);
         if (nvo != nullptr){
             current->left = nvo;
@@ -185,11 +185,11 @@ bool MyBST::ancestors(NodoData data, MyNodeBST *current, string &ancestorsString
     if (current == nullptr) {
             return false;
         }
-        if (current->data == data) {
+        if (current->data.key == data.key) {
             return true;
         }
         if (ancestors(data, current->left, ancestorsString) || ancestors(data, current->right, ancestorsString)) {
-            ancestorsString.insert(0, to_string(current->data) + ",");
+            ancestorsString.insert(0, to_string(current->data.key) + ",");
             return true;
         } else {
             return false;
