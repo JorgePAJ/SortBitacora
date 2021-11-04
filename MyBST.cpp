@@ -235,8 +235,9 @@ void MyBST::preorder(){
 // Complejidad O(n)
 void MyBST::inorder(MyNodeBST* current){
     if (current != nullptr) {
+
         inorder(current -> left);
-        cout << current -> data << ",";
+        cout << "Ip:" << current -> data.ipAddress <<" Key: "<<current->data.key<<",";
         inorder(current -> right);
     }
 }
@@ -290,9 +291,11 @@ void MyBST::level(){
 }
 
 //Aqui poner el main :)
-int main2(){
+int main(){
     MyBST arbol;
-    NodoData data = NodoData(4,"dasdas");
+    NodoData data = NodoData(4,"123.4.56.7.89");
+    cout << data.ipAddress << endl;
     arbol.insert(data);
+    cout << data.ipAddress << endl;
     arbol.visit(2);
 }
