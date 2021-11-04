@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include "nodoData.h"
 using namespace std;
 #ifndef MYBST_H
 #define MYBST_H

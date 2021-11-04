@@ -290,3 +290,9 @@ void MyBST::level(){
 }
 
 //Aqui poner el main :)
+int main2(){
+    MyBST arbol;
+    NodoData data = NodoData(4,"dasdas");
+    arbol.insert(data);
+    arbol.visit(2);
+}
