@@ -113,7 +113,9 @@ int MyBST::whatLevelAmI(NodoData data)
 // Funcion para insertar un nodo.
 MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
     if (current == nullptr){
+        cout <<"data: " << data.ipAddress <<endl;
         return new MyNodeBST(data);
+
     }
     else if (data.key == current->data.key){
         return nullptr;
@@ -143,6 +145,7 @@ MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
 //Funcion de preparacion para insertar la informacion,  solo pide la data
 bool MyBST::insert(NodoData data){
     if (this->root == nullptr){
+        cout <<"datao insert: "<<data.ipAddress<<endl;
         this->root = new MyNodeBST(data);
         this->size++;
         return true;
@@ -157,6 +160,7 @@ bool MyBST::insert(NodoData data){
             return false;
         }
     }
+
 }
 //Complejidad O(N)
 //Esta funcion nos regresa la altura del arbol
@@ -222,7 +226,7 @@ void MyBST::visit(int option){
 // Complejidad O(n)
 void MyBST::preorder(MyNodeBST* current){
     if (current != nullptr) {
-        cout << current -> data << ",";
+        cout << current -> data.ipAddress << ",\t";
         preorder(current -> left);
         preorder(current -> right);
     }
@@ -237,7 +241,7 @@ void MyBST::inorder(MyNodeBST* current){
     if (current != nullptr) {
 
         inorder(current -> left);
-        cout << "Ip:" << current -> data.ipAddress <<" Key: "<<current->data.key<<",";
+        cout << current -> data.ipAddress <<",\t";
         inorder(current -> right);
     }
 }
@@ -251,7 +255,7 @@ void MyBST::postorder(MyNodeBST* current){
     if (current != nullptr) {
         postorder(current -> left);
         postorder(current -> right);
-        cout << current -> data << ",";
+        cout << current -> data.ipAddress << ",\t";
     }
 }
 void MyBST::postorder(){
@@ -270,11 +274,10 @@ void MyBST::level(MyNodeBST* current){
  
     // Enqueue Root and initialize height
     cola.push(current);
- 
     while (cola.empty() == false) {
         // Print front of queue and remove it from queue
         MyNodeBST* nodo = cola.front();
-        cout << nodo->data << " ";
+        cout << nodo->data.ipAddress <<",\t";
         cola.pop();
  
         /* Enqueue left child */
@@ -293,9 +296,11 @@ void MyBST::level(){
 //Aqui poner el main :)
 int main(){
     MyBST arbol;
-    NodoData data = NodoData(4,"123.4.56.7.89");
-    cout << data.ipAddress << endl;
+    NodoData data = NodoData(4,"10.15.186.237");
+    // cout << data.ipAddress << endl;
     arbol.insert(data);
-    cout << data.ipAddress << endl;
-    arbol.visit(2);
+    arbol.insert(NodoData(5,"10.15.190.236"));
+    arbol.insert(NodoData(6,"10.15.190.221"));
+    arbol.insert(NodoData(3,"10.15.187.244"));
+    arbol.visit(4);    
 }
