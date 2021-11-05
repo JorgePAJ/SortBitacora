@@ -18,6 +18,7 @@
   "C_Cpp_Runner.warningsAsError": false,
   "files.associations": {
     "*.tcc": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "string": "cpp"
   }
 }

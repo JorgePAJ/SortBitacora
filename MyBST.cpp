@@ -296,11 +296,27 @@ void MyBST::level(){
 //Aqui poner el main :)
 int main(){
     MyBST arbol;
-    NodoData data = NodoData(4,"10.15.186.237");
-    // cout << data.ipAddress << endl;
+    NodoData data = NodoData(54,"123.4.56.7.89");
+    NodoData data2 = NodoData(24,"428.2.74.7.12");
+    NodoData data3 = NodoData(17,"176.8.24.4.80");
+    NodoData data4 = NodoData(68,"123.9.32.8.63");
+    NodoData data5 = NodoData(128,"456.1.23.2.57");
+    NodoData data6 = NodoData(65,"3215.54.689.45.955");
+
+    cout << data.ipAddress << endl;
     arbol.insert(data);
-    arbol.insert(NodoData(5,"10.15.190.236"));
-    arbol.insert(NodoData(6,"10.15.190.221"));
-    arbol.insert(NodoData(3,"10.15.187.244"));
-    arbol.visit(4);    
+    arbol.insert(data2);
+    arbol.insert(data3);
+    arbol.insert(data4);
+    arbol.insert(data5);
+    arbol.insert(data6);
+    cout << data.ipAddress << endl;
+    arbol.visit(1);
+    cout<<endl;
+    arbol.visit(2);
+    cout<<endl;
+    arbol.visit(3);
+    cout<<endl;
+    arbol.visit(4);
+    cout<<endl;
 }
