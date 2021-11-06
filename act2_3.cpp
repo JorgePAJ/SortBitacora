@@ -191,7 +191,11 @@ while(getline(listaIps,ipIndividual)){
     anteriorIp = ipIndividual;
   }
 }
-arbol.inorder();
+ listaIps.close();
+  int b = 0;
+  cout << "Cuantos resultados quieres desplegar?: " << endl;
+  cin >> b;
+  arbol.inorderBack(b);
   /*string name;
   while (pregunta != "s"){
     name = "Salida" + to_string(counter) + "-Eq4";

@@ -8,6 +8,8 @@
 #include "nodoData.h"
 using namespace std;
 
+int n_vals = 0;
+
 // Constructord de el arbol
 MyBST::MyBST(){
     this->size = 0;
@@ -132,21 +134,19 @@ MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
     }
     else
     {
-        std::cout << "Insert data left " << data.key << " " << data.ipAddress << std::endl;
         // Insert left node data, if the 'value'
         // to be inserted is greater than 'root' node data.
  
         // Process left nodes.
-        root->left = insert(root->left, data);
+        current->left = insert(current->left, data);
     }
  
     // Return 'root' node, after insertion.
-    return root;
+    return current;
 }
 //Funcion de preparacion para insertar la informacion,  solo pide la data
 bool MyBST::insert(NodoData data){
     if (this->root == nullptr){
-        cout <<"datao insert: "<<data.ipAddress<<endl;
         this->root = new MyNodeBST(data);
         this->size++;
         return true;
@@ -221,13 +221,16 @@ void MyBST::visit(int option){
     case 4:
         level();
         break;
+    case 5:
+        inorderBack(5);
+        break;
     }
 }
 
 // Complejidad O(n)
 void MyBST::preorder(MyNodeBST* current){
     if (current != nullptr) {
-        cout << current -> data.ipAddress << ",\t";
+    cout << current -> data.ipAddress << " Se repite :"<< current->data.key<<" veces"<<",\n";
         preorder(current -> left);
         preorder(current -> right);
     }
@@ -242,12 +245,27 @@ void MyBST::inorder(MyNodeBST* current){
     if (current != nullptr) {
 
         inorder(current -> left);
-        cout << current -> data.ipAddress <<",\t";
+        cout << current -> data.ipAddress << " Se repite :"<< current->data.key<<" veces"<<",\n";
         inorder(current -> right);
     }
 }
 void MyBST::inorder(){
     inorder(this -> root);
+    cout << endl;
+}
+//inverso
+void MyBST::inorderBack(MyNodeBST* current,int b){
+    if (current == nullptr) return;
+    inorderBack(current -> right, b);
+    if(n_vals++<b){
+        cout << current -> data.ipAddress << " Se repite :"<< current->data.key<<" veces"<<"\n";
+    }
+    
+    inorderBack(current -> left, b);
+}
+void MyBST::inorderBack(int b){
+    n_vals = 0;
+    inorderBack(this -> root, b);
     cout << endl;
 }
 
@@ -256,7 +274,7 @@ void MyBST::postorder(MyNodeBST* current){
     if (current != nullptr) {
         postorder(current -> left);
         postorder(current -> right);
-        cout << current -> data.ipAddress << ",\t";
+        cout << current -> data.ipAddress << " Se repite :"<< current->data.key<<" veces"<<",\n";
     }
 }
 void MyBST::postorder(){
@@ -278,7 +296,7 @@ void MyBST::level(MyNodeBST* current){
     while (cola.empty() == false) {
         // Print front of queue and remove it from queue
         MyNodeBST* nodo = cola.front();
-        cout << nodo->data.ipAddress <<",\t";
+        cout << nodo -> data.ipAddress << " Se repite :"<< nodo->data.key<<" veces"<<"\n";
         cola.pop();
  
         /* Enqueue left child */

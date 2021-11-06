@@ -28,7 +28,8 @@ class MyBST{
         void postorder(MyNodeBST* current); // Listo
         void level(MyNodeBST* current); // Listo
         MyNodeBST* insert(MyNodeBST* current, NodoData data); // Listo
-        int height(MyNodeBST* root); // Listo
+        void inorderBack(MyNodeBST* current, int b);
+        int height(MyNodeBST* root); // Listoe
         int whatLevelAmI(MyNodeBST* current, MyNodeBST data, int level); // Listo
         MyNodeBST* remove(MyNodeBST* current, MyNodeBST data, bool &trigger); // Listo
         MyNodeBST* minNode(MyNodeBST *current);// Listo
@@ -37,6 +38,7 @@ class MyBST{
         //sólo la función de preparación sería pública
     public:
         MyBST();
+        void inorderBack(int b);
         int length(); // Listo
         bool isEmpty(); // Listo
         bool search(MyNodeBST data); // Listo
