@@ -30,13 +30,13 @@ bool MyBST::isEmpty(){
     return this->size == 0;
 }
 
-bool MyBST::search(NodoData data){
+bool MyBST::search(MyNodeBST data){
     MyNodeBST *temp = this->root;
     while (temp != nullptr){
-        if (temp->data.key == data.key){
+        if (temp->data.key == data.data.key){
             return true; //el dato si esta en el arbol
         }
-        else if (temp->data.key > data.key){
+        else if (temp->data.key > data.data.key){
             temp = temp->left;
         }
         else{
@@ -48,14 +48,14 @@ bool MyBST::search(NodoData data){
 
 // Complejidad O(N)
 //Elimina un nodo del arbol.
-MyNodeBST* MyBST::remove(MyNodeBST* current, NodoData data, bool &trigger){
+MyNodeBST* MyBST::remove(MyNodeBST* current, MyNodeBST data, bool &trigger){
     if (current == nullptr) {
         trigger= false;
         return current;
     }
-    if (data.key < current->data.key) {
+    if (data.data.key < current->data.key) {
         current->left = remove(current->left, data, trigger);
-    } else if (data.key > current->data.key) {
+    } else if (data.data.key > current->data.key) {
         current->right = remove(current->right, data, trigger);
     } else {
         if (current->left == nullptr) {
@@ -76,7 +76,7 @@ MyNodeBST* MyBST::remove(MyNodeBST* current, NodoData data, bool &trigger){
     return current;
 }
 //Funcion de preparacion para remover nodos
-bool MyBST::remove(NodoData data){
+bool MyBST::remove(MyNodeBST data){
     bool trigger = false;
     MyNodeBST* root = remove(this->root, data, trigger);
     if (root != nullptr){
@@ -88,12 +88,12 @@ bool MyBST::remove(NodoData data){
  
  //Complejidad O(N)
  //Funcion que regresa el nivel donde el nodo esta localizado
-int MyBST::whatLevelAmI(MyNodeBST* current, NodoData data, int level)
+int MyBST::whatLevelAmI(MyNodeBST* current, MyNodeBST data, int level)
 {
     if (current == nullptr)
         return 0;
  
-    if (current->data.key == data.key)
+    if (current->data.key == data.data.key)
         return level;
  
     int levelInf = whatLevelAmI(current->left, data, level + 1);
@@ -104,23 +104,23 @@ int MyBST::whatLevelAmI(MyNodeBST* current, NodoData data, int level)
     return levelInf;
 }
 //Funcion de preparacion para conseguir el nivel
-int MyBST::whatLevelAmI(NodoData data)
+int MyBST::whatLevelAmI(MyNodeBST data)
 {
     return whatLevelAmI(this->root, data, 0);
 }
 //
 // Complejidad O(n)
 // Funcion para insertar un nodo.
-MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
+MyNodeBST* MyBST::insert(MyNodeBST *current, MyNodeBST data){
     if (current == nullptr){
-        cout <<"data: " << data.ipAddress <<endl;
+        cout <<"data: " << data.data.ipAddress <<endl;
         return new MyNodeBST(data);
 
     }
-    else if (data.key == current->data.key){
+    else if (data.data.key == current->data.key){
         return nullptr;
     }
-    else if (data.key < current->data.key){
+    else if (data.data.key < current->data.key){
         MyNodeBST *nvo = insert(current->left, data);
         if (nvo != nullptr){
             current->left = nvo;
@@ -143,9 +143,9 @@ MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
     }
 }
 //Funcion de preparacion para insertar la informacion,  solo pide la data
-bool MyBST::insert(NodoData data){
+bool MyBST::insert(MyNodeBST data){
     if (this->root == nullptr){
-        cout <<"datao insert: "<<data.ipAddress<<endl;
+        cout <<"datao insert: "<<data.data.ipAddress<<endl;
         this->root = new MyNodeBST(data);
         this->size++;
         return true;
@@ -185,11 +185,11 @@ int MyBST::height(){
 
 // Complejidad O(n)
 //Esta funcion imprime todos los ancestros de un nodo dado.
-bool MyBST::ancestors(NodoData data, MyNodeBST *current, string &ancestorsString){
+bool MyBST::ancestors(MyNodeBST data, MyNodeBST *current, string &ancestorsString){
     if (current == nullptr) {
             return false;
         }
-        if (current->data.key == data.key) {
+        if (current->data.key == data.data.key) {
             return true;
         }
         if (ancestors(data, current->left, ancestorsString) || ancestors(data, current->right, ancestorsString)) {
@@ -200,7 +200,7 @@ bool MyBST::ancestors(NodoData data, MyNodeBST *current, string &ancestorsString
         }
 }
 //Funcion de preparacion para los ancestros
-void MyBST::ancestors(NodoData data){
+void MyBST::ancestors(MyNodeBST data){
     string ancestorsString;
     ancestors(data, this->root, ancestorsString);
     cout << ancestorsString << endl;
