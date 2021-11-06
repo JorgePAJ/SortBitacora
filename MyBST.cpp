@@ -108,7 +108,7 @@ int MyBST::whatLevelAmI(NodoData data)
 {
     return whatLevelAmI(this->root, data, 0);
 }
-
+//
 // Complejidad O(n)
 // Funcion para insertar un nodo.
 MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
