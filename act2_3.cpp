@@ -10,6 +10,10 @@ Fecha de ultima modificacion 14/10/2021
 #include <fstream>
 #include <sstream>
 #include "Historial.h"
+<<<<<<< HEAD
+=======
+#include "nodoData.h"
+>>>>>>> parent of ed3d357 (seg fault feature added :D)
 #include <iostream>
 #include <algorithm>
 #include <string.h>
@@ -171,6 +175,7 @@ int main(){
   //Complejidad O(N)
   ordenado << bruh << endl;
   
+<<<<<<< HEAD
   ordenado.close();
   
   for(int i = 0; i < bruh.length();i++){
@@ -183,6 +188,10 @@ int main(){
     arbol.insert(data);
   }
   
+=======
+
+  ordenado.close();
+>>>>>>> parent of ed3d357 (seg fault feature added :D)
   string name;
   while (pregunta != "s"){
     name = "Salida" + to_string(counter) + "-Eq4";

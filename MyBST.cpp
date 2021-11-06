@@ -30,13 +30,13 @@ bool MyBST::isEmpty(){
     return this->size == 0;
 }
 
-bool MyBST::search(MyNodeBST data){
+bool MyBST::search(NodoData data){
     MyNodeBST *temp = this->root;
     while (temp != nullptr){
-        if (temp->data.key == data.data.key){
+        if (temp->data.key == data.key){
             return true; //el dato si esta en el arbol
         }
-        else if (temp->data.key > data.data.key){
+        else if (temp->data.key > data.key){
             temp = temp->left;
         }
         else{
@@ -48,14 +48,14 @@ bool MyBST::search(MyNodeBST data){
 
 // Complejidad O(N)
 //Elimina un nodo del arbol.
-MyNodeBST* MyBST::remove(MyNodeBST* current, MyNodeBST data, bool &trigger){
+MyNodeBST* MyBST::remove(MyNodeBST* current, NodoData data, bool &trigger){
     if (current == nullptr) {
         trigger= false;
         return current;
     }
-    if (data.data.key < current->data.key) {
+    if (data.key < current->data.key) {
         current->left = remove(current->left, data, trigger);
-    } else if (data.data.key > current->data.key) {
+    } else if (data.key > current->data.key) {
         current->right = remove(current->right, data, trigger);
     } else {
         if (current->left == nullptr) {
@@ -76,7 +76,7 @@ MyNodeBST* MyBST::remove(MyNodeBST* current, MyNodeBST data, bool &trigger){
     return current;
 }
 //Funcion de preparacion para remover nodos
-bool MyBST::remove(MyNodeBST data){
+bool MyBST::remove(NodoData data){
     bool trigger = false;
     MyNodeBST* root = remove(this->root, data, trigger);
     if (root != nullptr){
@@ -88,12 +88,12 @@ bool MyBST::remove(MyNodeBST data){
  
  //Complejidad O(N)
  //Funcion que regresa el nivel donde el nodo esta localizado
-int MyBST::whatLevelAmI(MyNodeBST* current, MyNodeBST data, int level)
+int MyBST::whatLevelAmI(MyNodeBST* current, NodoData data, int level)
 {
     if (current == nullptr)
         return 0;
  
-    if (current->data.key == data.data.key)
+    if (current->data.key == data.key)
         return level;
  
     int levelInf = whatLevelAmI(current->left, data, level + 1);
@@ -104,13 +104,14 @@ int MyBST::whatLevelAmI(MyNodeBST* current, MyNodeBST data, int level)
     return levelInf;
 }
 //Funcion de preparacion para conseguir el nivel
-int MyBST::whatLevelAmI(MyNodeBST data)
+int MyBST::whatLevelAmI(NodoData data)
 {
     return whatLevelAmI(this->root, data, 0);
 }
 //
 // Complejidad O(n)
 // Funcion para insertar un nodo.
+<<<<<<< HEAD
 MyNodeBST* MyBST::insert(MyNodeBST *current, MyNodeBST data){
     if (current == nullptr){
         cout <<"data: " << data.data.ipAddress <<endl;
@@ -121,6 +122,18 @@ MyNodeBST* MyBST::insert(MyNodeBST *current, MyNodeBST data){
         return nullptr;
     }
     else if (data.data.key < current->data.key){
+=======
+MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
+    if (current == nullptr){
+        cout <<"data: " << data.ipAddress <<endl;
+        return new MyNodeBST(data);
+
+    }
+    else if (data.key == current->data.key){
+        return nullptr;
+    }
+    else if (data.key < current->data.key){
+>>>>>>> parent of ed3d357 (seg fault feature added :D)
         MyNodeBST *nvo = insert(current->left, data);
         if (nvo != nullptr){
             current->left = nvo;
@@ -143,9 +156,9 @@ MyNodeBST* MyBST::insert(MyNodeBST *current, MyNodeBST data){
     }
 }
 //Funcion de preparacion para insertar la informacion,  solo pide la data
-bool MyBST::insert(MyNodeBST data){
+bool MyBST::insert(NodoData data){
     if (this->root == nullptr){
-        cout <<"datao insert: "<<data.data.ipAddress<<endl;
+        cout <<"datao insert: "<<data.ipAddress<<endl;
         this->root = new MyNodeBST(data);
         this->size++;
         return true;
@@ -185,11 +198,11 @@ int MyBST::height(){
 
 // Complejidad O(n)
 //Esta funcion imprime todos los ancestros de un nodo dado.
-bool MyBST::ancestors(MyNodeBST data, MyNodeBST *current, string &ancestorsString){
+bool MyBST::ancestors(NodoData data, MyNodeBST *current, string &ancestorsString){
     if (current == nullptr) {
             return false;
         }
-        if (current->data.key == data.data.key) {
+        if (current->data.key == data.key) {
             return true;
         }
         if (ancestors(data, current->left, ancestorsString) || ancestors(data, current->right, ancestorsString)) {
@@ -200,7 +213,7 @@ bool MyBST::ancestors(MyNodeBST data, MyNodeBST *current, string &ancestorsStrin
         }
 }
 //Funcion de preparacion para los ancestros
-void MyBST::ancestors(MyNodeBST data){
+void MyBST::ancestors(NodoData data){
     string ancestorsString;
     ancestors(data, this->root, ancestorsString);
     cout << ancestorsString << endl;
@@ -296,6 +309,7 @@ void MyBST::level(){
 //Aqui poner el main :)
 int main(){
     MyBST arbol;
+<<<<<<< HEAD
     NodoData data = NodoData(54,"123.4.56.7.89");
     NodoData data2 = NodoData(24,"428.2.74.7.12");
     NodoData data3 = NodoData(17,"176.8.24.4.80");
@@ -319,4 +333,13 @@ int main(){
     cout<<endl;
     arbol.visit(4);
     cout<<endl;
+=======
+    NodoData data = NodoData(4,"10.15.186.237");
+    // cout << data.ipAddress << endl;
+    arbol.insert(data);
+    arbol.insert(NodoData(5,"10.15.190.236"));
+    arbol.insert(NodoData(6,"10.15.190.221"));
+    arbol.insert(NodoData(3,"10.15.187.244"));
+    arbol.visit(4);    
+>>>>>>> parent of ed3d357 (seg fault feature added :D)
 }
