@@ -132,7 +132,7 @@ MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
     }
     else
     {
-        std::cout << "Insert data left" << std::endl;
+        std::cout << "Insert data left " << data.key << " " << data.ipAddress << std::endl;
         // Insert left node data, if the 'value'
         // to be inserted is greater than 'root' node data.
  
