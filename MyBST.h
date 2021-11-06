@@ -27,7 +27,7 @@ class MyBST{
         void inorder(MyNodeBST* current); // Listo
         void postorder(MyNodeBST* current); // Listo
         void level(MyNodeBST* current); // Listo
-        MyNodeBST* insert(MyNodeBST* current, MyNodeBST data); // Listo
+        MyNodeBST* insert(MyNodeBST* current, NodoData data); // Listo
         int height(MyNodeBST* root); // Listo
         int whatLevelAmI(MyNodeBST* current, MyNodeBST data, int level); // Listo
         MyNodeBST* remove(MyNodeBST* current, MyNodeBST data, bool &trigger); // Listo
@@ -40,7 +40,7 @@ class MyBST{
         int length(); // Listo
         bool isEmpty(); // Listo
         bool search(MyNodeBST data); // Listo
-        bool insert(MyNodeBST data);//true si lo inserto o no // Listo
+        bool insert(NodoData data);//true si lo inserto o no // Listo
         bool remove(MyNodeBST data);//si el valor estaba en el árbol lo borra // 
                               //y regresa true, caso contrario sólo regresa false
         //Estudiar borrado en BST

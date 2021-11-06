@@ -180,8 +180,7 @@ while(getline(listaIps,ipIndividual)){
     if (anteriorIp == ipIndividual){
       key++;
     }else{
-    NodoData nododata = NodoData(key,anteriorIp);
-    MyNodeBST data = nododata;
+    NodoData data = NodoData(key,anteriorIp);
     arbol.insert(data);
     key = 1;
     }

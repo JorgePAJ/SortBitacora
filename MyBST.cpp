@@ -111,38 +111,42 @@ int MyBST::whatLevelAmI(MyNodeBST data)
 
 // Complejidad O(n)
 // Funcion para insertar un nodo.
-MyNodeBST* MyBST::insert(MyNodeBST *current, MyNodeBST data){
+MyNodeBST* MyBST::insert(MyNodeBST *current, NodoData data){
     if (!current)
     {
         // Insert the first node, if root is NULL.
+
         return new MyNodeBST(data);
     }
  
     // Insert data.
-    if (data.data.key > current->data.key)
+    if (data.key > current->data.key)
     {
+        
+        
         // Insert right node data, if the 'value'
         // to be inserted is greater than 'root' node data.
  
         // Process right nodes.
-        current->right = insert(current->right, data.data);
+        current->right = insert(current->right, data);
     }
     else
     {
+        std::cout << "Insert data left" << std::endl;
         // Insert left node data, if the 'value'
         // to be inserted is greater than 'root' node data.
  
         // Process left nodes.
-        root->left = insert(root->left, data.data);
+        root->left = insert(root->left, data);
     }
  
     // Return 'root' node, after insertion.
     return root;
 }
 //Funcion de preparacion para insertar la informacion,  solo pide la data
-bool MyBST::insert(MyNodeBST data){
+bool MyBST::insert(NodoData data){
     if (this->root == nullptr){
-        cout <<"datao insert: "<<data.data.ipAddress<<endl;
+        cout <<"datao insert: "<<data.ipAddress<<endl;
         this->root = new MyNodeBST(data);
         this->size++;
         return true;
