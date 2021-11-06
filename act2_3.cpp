@@ -11,15 +11,18 @@ Fecha de ultima modificacion 14/10/2021
 #include <sstream>
 #include "Historial.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #include "nodoData.h"
 >>>>>>> parent of ed3d357 (seg fault feature added :D)
+=======
+#include "nodoData.h"
+#include "MyBST.h"
+>>>>>>> parent of 9b39939 (Merge branch 'BSTip' of https://github.com/WaberHoruhe/SortBitacora into BSTip)
 #include <iostream>
 #include <algorithm>
 #include <string.h>
 #include <math.h>
-#include "MyBST.h"
-#include "nodoData.h"
 using namespace std;
 // Complejidad O(N)
 //Funcion que obtiene las cuadrantes de las ips y regresa  una variable ipNumber
@@ -157,13 +160,14 @@ void escribirTxt(MyLinkedList &bruh, long primerIp, long ultimoIp, ofstream &res
 int main(){
   int counter = 1;
   string primerIp, ultimoIp;
-  string pregunta;
-  ifstream bitacora;
-  ofstream ordenado("bitacoraOrdenada-Eq4.txt");
   MyBST arbol;
-  NodoData data;
-  string ip;
-  bitacora.open("bitacora.txt");
+  string pregunta;
+  ifstream bitacora, listaIps;
+  string ipIndividual;
+  string anteriorIp;
+  int key = 0;
+  ofstream ordenado("bitacoraOrdenada-Eq4.txt");
+  bitacora.open("bitacora_head.txt");
   if (!bitacora){ // Sirve para decirnos cuando no se carga el archivo txt
     cout << "No se abrio el archivo correctamente" << endl;
     return 1;
@@ -174,25 +178,43 @@ int main(){
   //Exporta los datos ordenados en un nuevo archivo
   //Complejidad O(N)
   ordenado << bruh << endl;
+<<<<<<< HEAD
   
 <<<<<<< HEAD
+=======
+>>>>>>> parent of 9b39939 (Merge branch 'BSTip' of https://github.com/WaberHoruhe/SortBitacora into BSTip)
   ordenado.close();
-  
-  for(int i = 0; i < bruh.length();i++){
-    int key = 0;
-    if(bruh.getAt(i).ipAddress == bruh.getAt(i++).ipAddress){
-      ip = bruh.getAt(i).ipAddress;
+  listaIps.open("bitacoraOrdenada-Eq4.txt");
+
+int counterGrosero = 0;
+while(getline(listaIps,ipIndividual)){
+  if(counterGrosero != 0){
+    if (anteriorIp == ipIndividual){
       key++;
-    }
-    data = NodoData(key,ip);
+    }else{
+    NodoData nododata = NodoData(key,anteriorIp);
+    MyNodeBST data = nododata;
     arbol.insert(data);
+    key = 1;
+    }
+  anteriorIp = ipIndividual;
+  }else{
+    counterGrosero = 1;
+    key++;
+    anteriorIp = ipIndividual;
   }
+<<<<<<< HEAD
   
 =======
 
   ordenado.close();
 >>>>>>> parent of ed3d357 (seg fault feature added :D)
   string name;
+=======
+}
+arbol.inorder();
+  /*string name;
+>>>>>>> parent of 9b39939 (Merge branch 'BSTip' of https://github.com/WaberHoruhe/SortBitacora into BSTip)
   while (pregunta != "s"){
     name = "Salida" + to_string(counter) + "-Eq4";
     name += ".txt";
@@ -206,6 +228,6 @@ int main(){
     cout << "Ingrese s para salir, o cualquier otra letra para continuar: " << endl;
     cin >> pregunta;
     counter++;
-  }
+  }*/
   return 0;
 }
