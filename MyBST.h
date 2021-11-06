@@ -21,16 +21,16 @@ class MyBST{
     private:
         int size;
         MyNodeBST* root;
-        bool search(NodoData data,MyNodeBST* current); // Listo
-        bool ancestors(NodoData data, MyNodeBST* current, string &ancestorsString); // Listo
+        bool search(MyNodeBST data,MyNodeBST* current); // Listo
+        bool ancestors(MyNodeBST data, MyNodeBST* current, string &ancestorsString); // Listo
         void preorder(MyNodeBST* current); // Listo
         void inorder(MyNodeBST* current); // Listo
         void postorder(MyNodeBST* current); // Listo
         void level(MyNodeBST* current); // Listo
-        MyNodeBST* insert(MyNodeBST* current, NodoData data); // Listo
+        MyNodeBST* insert(MyNodeBST* current, MyNodeBST data); // Listo
         int height(MyNodeBST* root); // Listo
-        int whatLevelAmI(MyNodeBST* current, NodoData data, int level); // Listo
-        MyNodeBST* remove(MyNodeBST* current, NodoData data, bool &trigger); // Listo
+        int whatLevelAmI(MyNodeBST* current, MyNodeBST data, int level); // Listo
+        MyNodeBST* remove(MyNodeBST* current, MyNodeBST data, bool &trigger); // Listo
         MyNodeBST* minNode(MyNodeBST *current);// Listo
         //En caso de hacer alguno de los métodos recursivos y necesiten
         //otro método que haga la recursión deben de colocarlo como privado
@@ -39,9 +39,9 @@ class MyBST{
         MyBST();
         int length(); // Listo
         bool isEmpty(); // Listo
-        bool search(NodoData data); // Listo
-        bool insert(NodoData data);//true si lo inserto o no // Listo
-        bool remove(NodoData data);//si el valor estaba en el árbol lo borra // 
+        bool search(MyNodeBST data); // Listo
+        bool insert(MyNodeBST data);//true si lo inserto o no // Listo
+        bool remove(MyNodeBST data);//si el valor estaba en el árbol lo borra // 
                               //y regresa true, caso contrario sólo regresa false
         //Estudiar borrado en BST
         //Estudiar AVL
@@ -51,11 +51,11 @@ class MyBST{
         void level(); // Listo
         void visit(int type);//Type: 1->preorder,2->inorder.3->postorder,4->level // Listo
         int height();//regresa la altura del BST. // Listo
-        void ancestors(NodoData data);//imprime los ancestros del valor pasado. // Listo
+        void ancestors(MyNodeBST data);//imprime los ancestros del valor pasado. // Listo
                                  //el orden de impresión debe ser de la raíz
                                  //hacía abajo.
                                 //Si valor no se localiza en el árbol no imprime nada
-        int whatLevelAmI(NodoData data);//regresa el nivel en que se encuentra el valor / //Listo
+        int whatLevelAmI(MyNodeBST data);//regresa el nivel en que se encuentra el valor / //Listo
                                    //dentro del árbol. Si el valor no está en árbol imprime -1
 };
 #endif
