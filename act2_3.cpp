@@ -10,12 +10,12 @@ Fecha de ultima modificacion 14/10/2021
 #include <fstream>
 #include <sstream>
 #include "Historial.h"
-#include "nodoData.h"
-#include "MyBST.h"
 #include <iostream>
 #include <algorithm>
 #include <string.h>
 #include <math.h>
+#include "MyBST.h"
+#include "nodoData.h"
 using namespace std;
 // Complejidad O(N)
 //Funcion que obtiene las cuadrantes de las ips y regresa  una variable ipNumber
@@ -153,14 +153,13 @@ void escribirTxt(MyLinkedList &bruh, long primerIp, long ultimoIp, ofstream &res
 int main(){
   int counter = 1;
   string primerIp, ultimoIp;
-  MyBST arbol;
   string pregunta;
-  ifstream bitacora, listaIps;
-  string ipIndividual;
-  string anteriorIp;
-  int key = 0;
+  ifstream bitacora;
   ofstream ordenado("bitacoraOrdenada-Eq4.txt");
-  bitacora.open("bitacora_head.txt");
+  MyBST arbol;
+  NodoData data;
+  string ip;
+  bitacora.open("bitacora.txt");
   if (!bitacora){ // Sirve para decirnos cuando no se carga el archivo txt
     cout << "No se abrio el archivo correctamente" << endl;
     return 1;
@@ -171,29 +170,20 @@ int main(){
   //Exporta los datos ordenados en un nuevo archivo
   //Complejidad O(N)
   ordenado << bruh << endl;
+  
   ordenado.close();
-  listaIps.open("bitacoraOrdenada-Eq4.txt");
-
-int counterGrosero = 0;
-while(getline(listaIps,ipIndividual)){
-  if(counterGrosero != 0){
-    if (anteriorIp == ipIndividual){
+  
+  for(int i = 0; i < bruh.length();i++){
+    int key = 0;
+    if(bruh.getAt(i).ipAddress == bruh.getAt(i++).ipAddress){
+      ip = bruh.getAt(i).ipAddress;
       key++;
-    }else{
-    NodoData nododata = NodoData(key,anteriorIp);
-    MyNodeBST data = nododata;
-    arbol.insert(data);
-    key = 1;
     }
-  anteriorIp = ipIndividual;
-  }else{
-    counterGrosero = 1;
-    key++;
-    anteriorIp = ipIndividual;
+    data = NodoData(key,ip);
+    arbol.insert(data);
   }
-}
-arbol.inorder();
-  /*string name;
+  
+  string name;
   while (pregunta != "s"){
     name = "Salida" + to_string(counter) + "-Eq4";
     name += ".txt";
@@ -207,6 +197,6 @@ arbol.inorder();
     cout << "Ingrese s para salir, o cualquier otra letra para continuar: " << endl;
     cin >> pregunta;
     counter++;
-  }*/
+  }
   return 0;
 }
